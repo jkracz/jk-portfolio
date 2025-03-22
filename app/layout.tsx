@@ -1,4 +1,5 @@
 import type React from "react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -9,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Joe Kracz | Freelance Developer",
   description:
-    "Websites, Web Apps, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
+    "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
 };
 
 export default function RootLayout({
@@ -29,6 +30,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ID ?? ""} />
     </html>
   );
 }

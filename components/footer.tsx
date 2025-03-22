@@ -61,7 +61,7 @@ export function Footer() {
               Joe Kracz
             </Link>
             <p className="mt-1 text-sm text-muted-foreground">
-              Websites, Web Apps, and Mobile Apps Built for Results
+              Websites, Online Stores, and Mobile Apps Built for Results
             </p>
           </motion.div>
 
