@@ -16,6 +16,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle2, DollarSign } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -23,30 +24,35 @@ import { useInView } from "react-intersection-observer";
 type ProjectType = "website" | "webapp" | "mobileapp";
 type Timeline = "asap" | "standard" | "flexible";
 
-export function PricingCalculator() {
-  const [projectType, setProjectType] = useState<ProjectType>("website");
-  const [timeline, setTimeline] = useState<Timeline>("standard");
-  const [features, setFeatures] = useState({
+const initialFormState = {
+  name: "",
+  email: "",
+  message: "",
+  projectType: "website" as ProjectType,
+  timeline: "standard" as Timeline,
+  complexity: 1,
+  features: {
     ecommerce: false,
     blog: false,
     authentication: false,
     apiIntegration: false,
-  });
-  const [complexity, setComplexity] = useState(1);
+  },
+};
+
+export function PricingCalculator() {
+  const [formData, setFormData] = useState(initialFormState);
   const [estimate, setEstimate] = useState(0);
-  const [previousEstimate, setPreviousEstimate] = useState(0);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
+  // Use destructured values where needed for convenience
+  const { projectType, features, complexity, timeline } = formData;
+
   // Calculate estimate whenever inputs change
   useEffect(() => {
-    setPreviousEstimate(estimate);
-
     let basePrice = 0;
 
     // Base price by project type
@@ -93,10 +99,60 @@ export function PricingCalculator() {
     setEstimate(finalEstimate);
   }, [projectType, features, complexity, timeline, estimate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Input change handler
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Select change handlers (for non-standard inputs)
+  const handleProjectTypeChange = (value: ProjectType) => {
+    setFormData(prev => ({ ...prev, projectType: value }));
+  };
+
+  const handleTimelineChange = (value: Timeline) => {
+    setFormData(prev => ({ ...prev, timeline: value }));
+  };
+
+  const handleComplexityChange = (value: number[]) => {
+    setFormData(prev => ({ ...prev, complexity: value[0] }));
+  };
+
+  const handleFeatureChange = (feature: keyof typeof features, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      features: { ...prev.features, [feature]: checked },
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would send this data to your backend
-    console.log({ name, email, projectType, features, complexity, timeline, estimate });
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      projectType: formData.projectType,
+      feature_ecommerce: features.ecommerce ? "Yes" : "No",
+      feature_blog: features.blog ? "Yes" : "No",
+      feature_authentication: features.authentication ? "Yes" : "No",
+      feature_apiIntegration: features.apiIntegration ? "Yes" : "No",
+      complexity: complexity === 1 ? "Simple" : complexity === 2 ? "Moderate" : "Complex",
+      timeline: formData.timeline,
+      estimate,
+      message: formData.message,
+    };
+    await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        ...payload,
+        access_key: "a8f35a93-f6aa-4139-8242-fe11ff0ab441",
+        // access_key: process.env.NEXT_PUBLIC_GOOGLE_ID ?? "",
+        subject: `Project estimate request from ${formData.name}`,
+      }),
+    });
     setSubmitted(true);
   };
 
@@ -162,10 +218,7 @@ export function PricingCalculator() {
               <CardContent className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="project-type">Project Type</Label>
-                  <Select
-                    value={projectType}
-                    onValueChange={value => setProjectType(value as ProjectType)}
-                  >
+                  <Select value={projectType} onValueChange={handleProjectTypeChange}>
                     <SelectTrigger
                       id="project-type"
                       className="transition-all duration-300 hover:border-primary"
@@ -193,9 +246,7 @@ export function PricingCalculator() {
                       <Switch
                         id="ecommerce"
                         checked={features.ecommerce}
-                        onCheckedChange={checked =>
-                          setFeatures({ ...features, ecommerce: checked })
-                        }
+                        onCheckedChange={checked => handleFeatureChange("ecommerce", checked)}
                         className="data-[state=checked]:bg-primary"
                       />
                     </div>
@@ -210,7 +261,7 @@ export function PricingCalculator() {
                       <Switch
                         id="blog"
                         checked={features.blog}
-                        onCheckedChange={checked => setFeatures({ ...features, blog: checked })}
+                        onCheckedChange={checked => handleFeatureChange("blog", checked)}
                         className="data-[state=checked]:bg-primary"
                       />
                     </div>
@@ -225,9 +276,7 @@ export function PricingCalculator() {
                       <Switch
                         id="authentication"
                         checked={features.authentication}
-                        onCheckedChange={checked =>
-                          setFeatures({ ...features, authentication: checked })
-                        }
+                        onCheckedChange={checked => handleFeatureChange("authentication", checked)}
                         className="data-[state=checked]:bg-primary"
                       />
                     </div>
@@ -242,9 +291,7 @@ export function PricingCalculator() {
                       <Switch
                         id="api-integration"
                         checked={features.apiIntegration}
-                        onCheckedChange={checked =>
-                          setFeatures({ ...features, apiIntegration: checked })
-                        }
+                        onCheckedChange={checked => handleFeatureChange("apiIntegration", checked)}
                         className="data-[state=checked]:bg-primary"
                       />
                     </div>
@@ -287,14 +334,14 @@ export function PricingCalculator() {
                     max={3}
                     step={1}
                     value={[complexity]}
-                    onValueChange={value => setComplexity(value[0])}
+                    onValueChange={handleComplexityChange}
                     className="[&>span:first-child]:bg-primary"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="timeline">Timeline</Label>
-                  <Select value={timeline} onValueChange={value => setTimeline(value as Timeline)}>
+                  <Select value={timeline} onValueChange={handleTimelineChange}>
                     <SelectTrigger
                       id="timeline"
                       className="transition-all duration-300 hover:border-primary"
@@ -347,9 +394,10 @@ export function PricingCalculator() {
                       <Label htmlFor="name">Name</Label>
                       <Input
                         id="name"
+                        name="name"
                         placeholder="Your name"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
+                        value={formData.name}
+                        onChange={handleChange}
                         required
                         className="transition-all duration-300 focus:border-primary"
                       />
@@ -359,10 +407,24 @@ export function PricingCalculator() {
                       <Label htmlFor="email">Email</Label>
                       <Input
                         id="email"
+                        name="email"
                         type="email"
                         placeholder="your.email@example.com"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="transition-all duration-300 focus:border-primary"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message">What do you want to build?</Label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Tell me about your project..."
+                        rows={5}
                         required
                         className="transition-all duration-300 focus:border-primary"
                       />
@@ -372,11 +434,6 @@ export function PricingCalculator() {
                       <span className="relative z-10">Get Detailed Quote</span>
                       <span className="absolute left-0 top-0 h-full w-0 bg-white/20 transition-all duration-300 ease-in-out group-hover:w-full"></span>
                     </Button>
-
-                    <p className="text-center text-xs text-muted-foreground">
-                      I'll send you a more accurate quote based on your specific project
-                      requirements.
-                    </p>
                   </form>
                 ) : (
                   <motion.div
@@ -388,7 +445,7 @@ export function PricingCalculator() {
                     <motion.div
                       className="flex justify-center"
                       initial={{ scale: 0 }}
-                      animate={{ scale: 1, rotate: [0, 10, 0] }}
+                      animate={{ scale: 1, rotate: 10 }}
                       transition={{
                         type: "spring",
                         stiffness: 260,
@@ -399,13 +456,14 @@ export function PricingCalculator() {
                       <CheckCircle2 className="h-16 w-16 text-green-500" />
                     </motion.div>
                     <h3 className="text-xl font-semibold">Thank You!</h3>
-                    <p>
-                      I've received your request and will send you a detailed quote within 24 hours.
-                    </p>
+                    <p>I've received your request and will reach out to you shortly.</p>
                     <Button
                       variant="outline"
                       className="w-full"
-                      onClick={() => setSubmitted(false)}
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData(initialFormState);
+                      }}
                     >
                       Start Over
                     </Button>

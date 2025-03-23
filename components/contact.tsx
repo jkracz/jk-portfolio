@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { Github, Linkedin, Twitter, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-
 export function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -33,11 +32,21 @@ export function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // In a real app, you would send this data to your backend
-    console.log(formData);
+    await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        // access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
+        access_key: "a8f35a93-f6aa-4139-8242-fe11ff0ab441",
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        subject: `Contact form submission from ${formData.name}`,
+      }),
+    });
 
     setIsSubmitting(false);
     setIsSubmitted(true);
