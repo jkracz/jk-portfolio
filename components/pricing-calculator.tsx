@@ -148,8 +148,7 @@ export function PricingCalculator() {
       },
       body: JSON.stringify({
         ...payload,
-        access_key: "a8f35a93-f6aa-4139-8242-fe11ff0ab441",
-        // access_key: process.env.NEXT_PUBLIC_GOOGLE_ID ?? "",
+        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
         subject: `Project estimate request from ${formData.name}`,
       }),
     });
