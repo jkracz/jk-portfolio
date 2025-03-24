@@ -22,30 +22,6 @@ export function About() {
     { name: "Tailwind CSS", logo: "/tailwind-icon.svg?height=60&width=60" },
   ];
 
-  // const milestones = [
-  //   {
-  //     year: '2018',
-  //     title: 'Started Freelancing',
-  //     description:
-  //       'Began building websites for local businesses while completing my Computer Science degree.',
-  //   },
-  //   {
-  //     year: '2019',
-  //     title: 'First Major Client',
-  //     description: 'Landed my first enterprise client and delivered a complex e-commerce solution.',
-  //   },
-  //   {
-  //     year: '2021',
-  //     title: 'Expanded to Mobile Development',
-  //     description: 'Added React Native to my skillset and launched my first mobile application.',
-  //   },
-  //   {
-  //     year: '2023',
-  //     title: '100+ Projects Completed',
-  //     description: 'Reached the milestone of completing over 100 successful client projects.',
-  //   },
-  // ];
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -75,19 +51,6 @@ export function About() {
     },
   };
 
-  // const milestoneVariants = {
-  //   hidden: { opacity: 0, x: -20 },
-  //   visible: (i: number) => ({
-  //     opacity: 1,
-  //     x: 0,
-  //     transition: {
-  //       duration: 0.5,
-  //       ease: "easeOut",
-  //       delay: 0.4 + i * 0.1,
-  //     },
-  //   }),
-  // };
-
   const techVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -116,7 +79,7 @@ export function About() {
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
       >
-        <div className="grid items-center gap-12 md:grid-cols-2">
+        <div className="grid gap-12 md:grid-cols-2">
           <motion.div variants={textVariants}>
             <h2 className="h2 mb-6">About Me</h2>
             <div className="prose max-w-none">
@@ -137,105 +100,79 @@ export function About() {
                 a custom web app, I focus on delivering high-quality work that meets business goals.
               </p>
             </div>
-
-            {/* <div className="mt-8">
-              <h3 className="mb-4 text-xl font-semibold">Professional Journey</h3>
-              <div className="space-y-4">
-                {milestones.map((milestone, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex"
-                    variants={milestoneVariants}
-                    custom={index}
-                  >
-                    <div className="mr-4 shrink-0">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                        {milestone.year}
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">{milestone.title}</h4>
-                      <p className="text-muted-foreground">{milestone.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div> */}
           </motion.div>
 
-          <div className="space-y-8">
-            <motion.div className="relative h-[400px] rounded-xl" variants={imageVariants}>
-              <div className="absolute inset-0 overflow-hidden rounded-xl">
-                <Image
-                  src="/placeholder.svg?height=400&width=400"
-                  alt="Joe Kracz"
-                  fill
-                  className="object-cover"
-                />
-                <div className="bg-linear-to-t absolute inset-0 from-black/30 to-transparent"></div>
+          <motion.div className="relative h-[500px] rounded-xl" variants={imageVariants}>
+            <div className="absolute inset-0 overflow-hidden rounded-xl">
+              <Image
+                src="/joe-kracz.jpg"
+                alt="Joe Kracz"
+                fill
+                className="object-cover object-[center_20%]"
+              />
+              <div className="bg-linear-to-t absolute inset-0 from-black/30 to-transparent"></div>
+            </div>
+
+            <motion.div
+              className="absolute -start-4 -top-4 z-10 rounded-lg bg-background/90 p-3 shadow-lg backdrop-blur-sm"
+              animate={{
+                y: [0, -10, 0],
+                rotate: [0, 5, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatType: "reverse",
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="size-3 rounded-full bg-green-500"></div>
+                <span className="text-caption font-medium">Webflow Creator</span>
               </div>
-
-              <motion.div
-                className="absolute -start-4 -top-4 z-10 rounded-lg bg-background/90 p-3 shadow-lg backdrop-blur-sm"
-                animate={{
-                  y: [0, -10, 0],
-                  rotate: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="size-3 rounded-full bg-green-500"></div>
-                  <span className="text-caption font-medium">Webflow Creator</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="absolute -bottom-4 -end-4 z-10 rounded-lg bg-background/90 p-3 shadow-lg backdrop-blur-sm"
-                animate={{
-                  y: [0, 10, 0],
-                  rotate: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                  delay: 1,
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="size-3 rounded-full bg-blue-500"></div>
-                  <span className="text-caption font-medium">React Developer</span>
-                </div>
-              </motion.div>
             </motion.div>
 
-            <div>
-              <h3 className="h4 mb-4">Technologies I Work With</h3>
-              <div className="grid grid-cols-4 gap-4">
-                {technologies.map((tech, index) => (
-                  <motion.div key={index} variants={techVariants} custom={index} whileHover="hover">
-                    <Card className="shadow-2xs backdrop-blur-xs h-full border-none bg-card/50 transition-all duration-300 hover:shadow-md">
-                      <CardContent className="flex h-full flex-col items-center justify-center p-4">
-                        <div className="mb-2 flex h-10 w-10 items-center justify-center">
-                          <Image
-                            src={tech.logo || "/placeholder.svg"}
-                            alt={tech.name}
-                            width={40}
-                            height={40}
-                            className="max-h-full max-w-full object-contain"
-                          />
-                        </div>
-                        <span className="text-caption">{tech.name}</span>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+            <motion.div
+              className="absolute -bottom-4 -end-4 z-10 rounded-lg bg-background/90 p-3 shadow-lg backdrop-blur-sm"
+              animate={{
+                y: [0, 10, 0],
+                rotate: [0, -5, 0],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatType: "reverse",
+                delay: 1,
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="size-3 rounded-full bg-blue-500"></div>
+                <span className="text-caption font-medium">React Developer</span>
               </div>
-            </div>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <div className="mt-12">
+          <h3 className="h4 mb-4">Technologies I Work With</h3>
+          <div className="grid grid-cols-4 gap-4 md:grid-cols-8">
+            {technologies.map((tech, index) => (
+              <motion.div key={index} variants={techVariants} custom={index} whileHover="hover">
+                <Card className="shadow-2xs backdrop-blur-xs h-full border-none bg-card/50 transition-all duration-300 hover:shadow-md">
+                  <CardContent className="flex h-full flex-col items-center justify-center p-4">
+                    <div className="mb-2 flex h-10 w-10 items-center justify-center">
+                      <Image
+                        src={tech.logo || "/placeholder.svg"}
+                        alt={tech.name}
+                        width={40}
+                        height={40}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                    <span className="text-caption">{tech.name}</span>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </motion.div>
