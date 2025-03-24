@@ -101,8 +101,8 @@ export function Testimonials() {
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div className="mb-12 text-center" variants={itemVariants}>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">Client Testimonials</h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+          <h2 className="h2 mb-4">Client Testimonials</h2>
+          <p className="text-lead mx-auto max-w-2xl text-muted-foreground">
             Don't just take my word for it. Here's what my clients have to say about working with
             me.
           </p>
@@ -130,11 +130,11 @@ export function Testimonials() {
                   />
                 </div>
                 <div className="grow text-center md:text-left">
-                  <p className="mb-4 text-lg italic md:text-xl">
+                  <p className="text-body-large mb-4 italic">
                     "{testimonials[currentIndex].quote}"
                   </p>
-                  <p className="font-semibold">{testimonials[currentIndex].name}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="h5">{testimonials[currentIndex].name}</p>
+                  <p className="text-caption text-muted-foreground">
                     {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
                   </p>
                 </div>

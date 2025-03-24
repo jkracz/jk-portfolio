@@ -122,19 +122,17 @@ export function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="relative overflow-hidden py-16 md:py-24">
-      <div className="absolute left-0 top-0 h-32 w-full bg-gradient-to-b from-muted/50 to-transparent"></div>
-
+    <section id="portfolio" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
       <motion.div
-        className="container"
+        className="container relative z-10"
         ref={ref}
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div className="mx-auto mb-12 max-w-3xl text-center" variants={headerVariants}>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">Featured Projects</h2>
-          <p className="text-lg text-muted-foreground">
+          <h2 className="h2 mb-4">Featured Projects</h2>
+          <p className="text-lead text-muted-foreground">
             A selection of my recent work delivering impactful solutions for clients across various
             industries.
           </p>
@@ -158,8 +156,8 @@ export function Portfolio() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90">
                   <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="mb-1 text-xl font-bold text-white">{project.title}</h3>
-                    <p className="mb-2 text-sm text-white/80">{project.description}</p>
+                    <h3 className="h4 mb-1 text-white">{project.title}</h3>
+                    <p className="text-caption mb-2 text-white/80">{project.description}</p>
                   </div>
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -202,10 +200,8 @@ export function Portfolio() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
                     <div className="absolute bottom-4 left-6 right-6">
-                      <DialogTitle className="text-2xl text-white">
-                        {selectedProject.title}
-                      </DialogTitle>
-                      <DialogDescription className="text-base text-white/80">
+                      <DialogTitle className="h3 text-white">{selectedProject.title}</DialogTitle>
+                      <DialogDescription className="text-body text-white/80">
                         {selectedProject.technologies.join(" • ")}
                       </DialogDescription>
                     </div>
@@ -214,16 +210,16 @@ export function Portfolio() {
 
                 <div className="space-y-6 p-6">
                   <div>
-                    <h4 className="mb-2 text-lg font-semibold">Project Overview</h4>
-                    <p>{selectedProject.fullDescription}</p>
+                    <h4 className="h5 mb-2">Project Overview</h4>
+                    <p className="text-body">{selectedProject.fullDescription}</p>
                   </div>
 
                   {selectedProject.before && selectedProject.after && (
                     <div>
-                      <h4 className="mb-2 text-lg font-semibold">Transformation</h4>
+                      <h4 className="h5 mb-2">Transformation</h4>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <p className="mb-1 text-sm text-muted-foreground">Before</p>
+                          <p className="text-caption mb-1 text-muted-foreground">Before</p>
                           <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
                             <Image
                               src={selectedProject.before || "/placeholder.svg"}
@@ -234,7 +230,7 @@ export function Portfolio() {
                           </div>
                         </div>
                         <div>
-                          <p className="mb-1 text-sm text-muted-foreground">After</p>
+                          <p className="text-caption mb-1 text-muted-foreground">After</p>
                           <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
                             <Image
                               src={selectedProject.after || "/placeholder.svg"}
@@ -249,22 +245,22 @@ export function Portfolio() {
                   )}
 
                   <div>
-                    <h4 className="mb-2 text-lg font-semibold">Results</h4>
-                    <p>{selectedProject.results}</p>
+                    <h4 className="h5 mb-2">Results</h4>
+                    <p className="text-body">{selectedProject.results}</p>
                   </div>
 
                   {selectedProject.link && (
-                    <div className="pt-2">
-                      <Button
-                        variant="outline"
-                        className="group"
-                        onClick={e => {
-                          e.stopPropagation();
-                          window.open(selectedProject.link, "_blank");
-                        }}
-                      >
-                        <span>Visit Project</span>
-                        <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                    <div className="pt-2 text-right">
+                      <Button asChild variant="outline" size="sm">
+                        <a
+                          href={selectedProject.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1"
+                        >
+                          <span>Visit Project</span>
+                          <ExternalLink size={14} />
+                        </a>
                       </Button>
                     </div>
                   )}

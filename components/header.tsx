@@ -118,7 +118,7 @@ export function Header() {
             <motion.button
               key={item}
               onClick={() => scrollToSection(item)}
-              className="group relative text-sm font-medium"
+              className="animated-underline text-body-small font-medium"
               custom={i}
               variants={navItemVariants}
               initial="hidden"
@@ -127,7 +127,6 @@ export function Header() {
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10 capitalize">{item}</span>
-              <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-300 ease-in-out group-hover:w-full"></span>
             </motion.button>
           ))}
           <motion.div custom={5} variants={navItemVariants} initial="hidden" animate="visible">
@@ -191,7 +190,7 @@ export function Header() {
                 <motion.button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className="py-2 text-sm font-medium capitalize transition-colors hover:text-primary"
+                  className="text-body py-2 font-medium capitalize transition-colors hover:text-primary"
                   variants={mobileNavItemVariants}
                 >
                   {item}

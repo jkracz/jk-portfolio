@@ -118,10 +118,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
-      <div className="bg-linear-to-b absolute left-0 top-0 h-32 w-full from-background to-transparent"></div>
-      <div className="bg-linear-to-t absolute bottom-0 left-0 h-32 w-full from-background to-transparent"></div>
-
+    <section id="contact" className="relative overflow-hidden py-16 md:py-24">
       <motion.div
         className="container"
         ref={ref}
@@ -130,10 +127,10 @@ export function Contact() {
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div className="mx-auto mb-12 max-w-3xl text-center" variants={headerVariants}>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+          <h2 className="mb-4 text-3xl font-bold md:text-5xl">
             Let's Build Something Great Together
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-xl text-muted-foreground">
             Have a project in mind? Get in touch and let's discuss how I can help bring your vision
             to life.
           </p>
@@ -142,7 +139,7 @@ export function Contact() {
         <div className="mx-auto grid max-w-4xl gap-12 md:grid-cols-2">
           <motion.div variants={contentVariants} custom={0}>
             <h3 className="mb-4 text-xl font-semibold">Get in Touch</h3>
-            <p className="mb-6">
+            <p className="mb-6 text-lg">
               I'm always open to discussing new projects, creative ideas, or opportunities to be
               part of your vision.
             </p>

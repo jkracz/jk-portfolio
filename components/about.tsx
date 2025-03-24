@@ -106,8 +106,8 @@ export function About() {
   };
 
   return (
-    <section id="about" className="relative overflow-hidden py-16 md:py-24">
-      <div className="bg-linear-to-b absolute left-0 top-0 h-32 w-full from-muted/50 to-transparent"></div>
+    <section id="about" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
+      <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-background to-transparent"></div>
 
       <motion.div
         className="container"
@@ -118,19 +118,19 @@ export function About() {
       >
         <div className="grid items-center gap-12 md:grid-cols-2">
           <motion.div variants={textVariants}>
-            <h2 className="mb-6 text-3xl font-bold md:text-4xl">About Me</h2>
+            <h2 className="h2 mb-6">About Me</h2>
             <div className="prose max-w-none">
-              <p className="mb-4 text-lg">
+              <p className="text-lead mb-4">
                 I'm Joe Kracz, a software engineer and freelance developer specializing in
                 high-performance websites and applications that deliver real business impact.
               </p>
-              <p className="mb-4">
+              <p className="text-body-large mb-4">
                 Before transitioning into development, I spent five years as a product manager,
                 where I honed my ability to bridge the gap between business needs and technical
                 execution. With a Computer Science degree from NYU, I bring both strategic thinking
                 and hands-on expertise to every project.
               </p>
-              <p>
+              <p className="text-body-large mb-4">
                 I've built websites and web applications for clients ranging from small businesses
                 to growing startups, helping them create digital experiences that are fast,
                 scalable, and user-friendly. Whether it's an e-commerce store, a marketing site, or
@@ -189,7 +189,7 @@ export function About() {
               >
                 <div className="flex items-center gap-2">
                   <div className="size-3 rounded-full bg-green-500"></div>
-                  <span className="text-sm font-medium">Webflow Creator</span>
+                  <span className="text-caption font-medium">Webflow Creator</span>
                 </div>
               </motion.div>
 
@@ -208,26 +208,28 @@ export function About() {
               >
                 <div className="flex items-center gap-2">
                   <div className="size-3 rounded-full bg-blue-500"></div>
-                  <span className="text-sm font-medium">React Developer</span>
+                  <span className="text-caption font-medium">React Developer</span>
                 </div>
               </motion.div>
             </motion.div>
 
             <div>
-              <h3 className="mb-4 text-xl font-semibold">Technologies I Work With</h3>
+              <h3 className="h4 mb-4">Technologies I Work With</h3>
               <div className="grid grid-cols-4 gap-4">
                 {technologies.map((tech, index) => (
                   <motion.div key={index} variants={techVariants} custom={index} whileHover="hover">
-                    <Card className="shadow-2xs backdrop-blur-xs border-none bg-card/50 transition-all duration-300 hover:shadow-md">
-                      <CardContent className="flex flex-col items-center justify-center p-4">
-                        <Image
-                          src={tech.logo || "/placeholder.svg"}
-                          alt={tech.name}
-                          width={40}
-                          height={40}
-                          className="mb-2"
-                        />
-                        <span className="text-sm">{tech.name}</span>
+                    <Card className="shadow-2xs backdrop-blur-xs h-full border-none bg-card/50 transition-all duration-300 hover:shadow-md">
+                      <CardContent className="flex h-full flex-col items-center justify-center p-4">
+                        <div className="mb-2 flex h-10 w-10 items-center justify-center">
+                          <Image
+                            src={tech.logo || "/placeholder.svg"}
+                            alt={tech.name}
+                            width={40}
+                            height={40}
+                            className="max-h-full max-w-full object-contain"
+                          />
+                        </div>
+                        <span className="text-caption">{tech.name}</span>
                       </CardContent>
                     </Card>
                   </motion.div>

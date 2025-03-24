@@ -62,6 +62,62 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Typography system */
+  h1,
+  .h1 {
+    @apply text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl;
+  }
+
+  h2,
+  .h2 {
+    @apply text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl;
+  }
+
+  h3,
+  .h3 {
+    @apply text-2xl font-bold tracking-tight md:text-3xl;
+  }
+
+  h4,
+  .h4 {
+    @apply text-xl font-semibold md:text-2xl;
+  }
+
+  h5,
+  .h5 {
+    @apply text-lg font-semibold;
+  }
+
+  /* Body text */
+  .text-lead {
+    @apply text-xl text-foreground md:text-2xl;
+  }
+
+  .text-body {
+    @apply text-base text-foreground;
+  }
+
+  .text-body-large {
+    @apply text-lg text-foreground;
+  }
+
+  .text-body-small {
+    @apply text-sm text-foreground;
+  }
+
+  /* Caption & muted text */
+  .text-muted {
+    @apply text-base text-muted-foreground;
+  }
+
+  .text-muted-large {
+    @apply text-lg text-muted-foreground;
+  }
+
+  .text-caption {
+    @apply text-sm text-muted-foreground;
+  }
 }
 
 /* Custom cursor styles */

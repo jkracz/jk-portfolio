@@ -191,9 +191,6 @@ export function PricingCalculator() {
 
   return (
     <section id="pricing" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
-      <div className="bg-linear-to-b absolute left-0 top-0 h-32 w-full from-background to-transparent"></div>
-      <div className="bg-linear-to-t absolute bottom-0 left-0 h-32 w-full from-background to-transparent"></div>
-
       <motion.div
         className="container"
         ref={ref}
@@ -202,8 +199,8 @@ export function PricingCalculator() {
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div className="mx-auto mb-12 max-w-3xl text-center" variants={headerVariants}>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">Project Estimate Calculator</h2>
-          <p className="text-lg text-muted-foreground">
+          <h2 className="h2 mb-4">Project Estimate Calculator</h2>
+          <p className="text-lead text-muted-foreground">
             Get an instant estimate for your project based on your specific requirements.
           </p>
         </motion.div>
