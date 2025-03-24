@@ -33,39 +33,26 @@ export function Portfolio() {
     {
       id: 1,
       title: "Club 1BD Event Site",
-      description: "Webflow site with 40% conversion increase",
+      description: "New Webflow site launching international tour.",
       fullDescription:
-        "Complete redesign of an outdated Webflow site with modern UI, improved product filtering, and optimized checkout flow.",
-      image: "/placeholder.svg?height=400&width=600",
+        "Custom Webflow site built to launch Club 1BD’s international tour, attracting 200k+ visitors and achieving sold-out events.",
+      image: "/projects/club1bd/homepage.png?height=400&width=600",
       technologies: ["Webflow", "Canva", "Relume"],
-      before: "/placeholder.svg?height=300&width=500",
-      after: "/placeholder.svg?height=300&width=500",
-      results:
-        "40% increase in conversion rate and 25% increase in average order value within the first month after launch.",
-      link: "#",
+      results: "Over 200,000 unique visitors in the first 60 days, almost all shows sold out.",
+      link: "https://www.club1bd.com/",
     },
     {
       id: 2,
-      title: "Furtado Global",
-      description: "Webflow site with 40% conversion increase",
-      fullDescription:
-        "Built a comprehensive analytics dashboard for a financial services company, featuring real-time data visualization and reporting tools.",
-      image: "/placeholder.svg?height=400&width=600",
-      technologies: ["Webflow", "Canva", "Relume"],
-      results:
-        "Reduced data analysis time by 60% and enabled the client to identify $1.2M in potential revenue opportunities.",
-      link: "#",
-    },
-    {
-      id: 3,
       title: "Pull Systems Company Site",
-      description: "Webflow site with 40% conversion increase",
+      description: "Rapid Webflow redesign for enterprise appeal.",
       fullDescription:
-        "Designed and developed a fitness tracking mobile application with workout plans, progress tracking, and social features.",
-      image: "/placeholder.svg?height=400&width=600",
-      technologies: ["Webflow", "Figma", "Relume"],
-      results: "Achieved 50,000+ downloads across iOS and Android with a 4.8-star average rating.",
-      link: "#",
+        "Rapid Webflow redesign transforming Pull Systems’ brand into an enterprise-focused experience, driving 20+ enterprise leads in one month.",
+      image: "/projects/pullSystems/homepage.png?height=400&width=600",
+      before: "/projects/pullSystems/before.png?height=300&width=500",
+      after: "/projects/pullSystems/homepage.png?height=300&width=500",
+      technologies: ["Webflow", "Figma", "API Integration", "Relume"],
+      results: "Over 20 enterprise leads generated in the first month.",
+      link: "https://www.pull.systems/",
     },
   ];
 
