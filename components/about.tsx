@@ -12,14 +12,14 @@ export function About() {
   });
 
   const technologies = [
-    { name: "Shopify", logo: "/shopify-icon.svg?height=60&width=60" },
-    { name: "Webflow", logo: "/webflow-icon.svg?height=60&width=60" },
-    { name: "React", logo: "/react-icon.svg?height=60&width=60" },
-    { name: "Expo", logo: "/expo-icon.svg?height=60&width=60" },
-    { name: "JavaScript", logo: "/javascript-icon.svg?height=60&width=60" },
-    { name: "TypeScript", logo: "/typescript-icon.svg?height=60&width=60" },
-    { name: "Node.js", logo: "/nodejs-icon.svg?height=60&width=60" },
-    { name: "Tailwind CSS", logo: "/tailwind-icon.svg?height=60&width=60" },
+    { name: "Shopify", logo: "/technology-icons/shopify-icon.svg?height=60&width=60" },
+    { name: "Webflow", logo: "/technology-icons/webflow-icon.svg?height=60&width=60" },
+    { name: "React", logo: "/technology-icons/react-icon.svg?height=60&width=60" },
+    { name: "Expo", logo: "/technology-icons/expo-icon.svg?height=60&width=60" },
+    { name: "JavaScript", logo: "/technology-icons/javascript-icon.svg?height=60&width=60" },
+    { name: "TypeScript", logo: "/technology-icons/typescript-icon.svg?height=60&width=60" },
+    { name: "Node.js", logo: "/technology-icons/nodejs-icon.svg?height=60&width=60" },
+    { name: "Tailwind CSS", logo: "/technology-icons/tailwind-icon.svg?height=60&width=60" },
   ];
 
   const containerVariants = {
