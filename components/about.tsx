@@ -121,7 +121,7 @@ export function About() {
             <h2 className="mb-6 text-3xl font-bold md:text-4xl">About Me</h2>
             <div className="prose max-w-none">
               <p className="mb-4 text-lg">
-                I’m Joe Kracz, a software engineer and freelance developer specializing in
+                I'm Joe Kracz, a software engineer and freelance developer specializing in
                 high-performance websites and applications that deliver real business impact.
               </p>
               <p className="mb-4">
@@ -131,9 +131,9 @@ export function About() {
                 and hands-on expertise to every project.
               </p>
               <p>
-                I’ve built websites and web applications for clients ranging from small businesses
+                I've built websites and web applications for clients ranging from small businesses
                 to growing startups, helping them create digital experiences that are fast,
-                scalable, and user-friendly. Whether it’s an e-commerce store, a marketing site, or
+                scalable, and user-friendly. Whether it's an e-commerce store, a marketing site, or
                 a custom web app, I focus on delivering high-quality work that meets business goals.
               </p>
             </div>
@@ -164,17 +164,53 @@ export function About() {
           </motion.div>
 
           <div className="space-y-8">
-            <motion.div
-              className="relative h-[400px] overflow-hidden rounded-xl"
-              variants={imageVariants}
-            >
-              <Image
-                src="/placeholder.svg?height=400&width=400"
-                alt="Joe Kracz"
-                fill
-                className="object-cover"
-              />
-              <div className="bg-linear-to-t absolute inset-0 from-black/30 to-transparent"></div>
+            <motion.div className="relative h-[400px] rounded-xl" variants={imageVariants}>
+              <div className="absolute inset-0 overflow-hidden rounded-xl">
+                <Image
+                  src="/placeholder.svg?height=400&width=400"
+                  alt="Joe Kracz"
+                  fill
+                  className="object-cover"
+                />
+                <div className="bg-linear-to-t absolute inset-0 from-black/30 to-transparent"></div>
+              </div>
+
+              <motion.div
+                className="absolute -start-4 -top-4 z-10 rounded-lg bg-background/90 p-3 shadow-lg backdrop-blur-sm"
+                animate={{
+                  y: [0, -10, 0],
+                  rotate: [0, 5, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Number.POSITIVE_INFINITY,
+                  repeatType: "reverse",
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="size-3 rounded-full bg-green-500"></div>
+                  <span className="text-sm font-medium">Webflow Creator</span>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="absolute -bottom-4 -end-4 z-10 rounded-lg bg-background/90 p-3 shadow-lg backdrop-blur-sm"
+                animate={{
+                  y: [0, 10, 0],
+                  rotate: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Number.POSITIVE_INFINITY,
+                  repeatType: "reverse",
+                  delay: 1,
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="size-3 rounded-full bg-blue-500"></div>
+                  <span className="text-sm font-medium">React Developer</span>
+                </div>
+              </motion.div>
             </motion.div>
 
             <div>

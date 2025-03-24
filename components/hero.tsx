@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 
 export function Hero() {
@@ -138,55 +138,14 @@ export function Hero() {
           initial="hidden"
           animate="visible"
         >
-          <div className="absolute inset-0 overflow-hidden rounded-2xl">
-            <Image
-              src="/placeholder.svg?height=500&width=500"
-              alt="Developer workspace"
-              fill
-              className="object-cover"
-              priority
-            />
+          <div className="absolute inset-0 z-0">
+            <div className="absolute bottom-1/2 right-1/2 size-80 translate-x-[40%] translate-y-[30%] rounded-full bg-primary/10 blur-3xl"></div>
+            <div className="absolute left-1/2 top-1/2 size-72 -translate-x-[60%] -translate-y-[40%] rounded-full bg-secondary/20 blur-3xl"></div>
           </div>
-          <div className="absolute -bottom-6 -end-6 size-64 rounded-full bg-primary/10 blur-3xl"></div>
-          <div className="absolute -start-6 -top-6 size-48 rounded-full bg-secondary/20 blur-3xl"></div>
 
-          {/* Floating elements */}
-          <motion.div
-            className="backdrop-blur-xs absolute -start-4 -top-4 rounded-lg bg-background/90 p-3 shadow-lg"
-            animate={{
-              y: [0, -10, 0],
-              rotate: [0, 5, 0],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "reverse",
-            }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="size-3 rounded-full bg-green-500"></div>
-              <span className="text-sm font-medium">Webflow Creator</span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="backdrop-blur-xs absolute -bottom-4 -end-4 rounded-lg bg-background/90 p-3 shadow-lg"
-            animate={{
-              y: [0, 10, 0],
-              rotate: [0, -5, 0],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "reverse",
-              delay: 1,
-            }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="size-3 rounded-full bg-blue-500"></div>
-              <span className="text-sm font-medium">React Developer</span>
-            </div>
-          </motion.div>
+          <div className="absolute inset-0 z-10 overflow-hidden rounded-2xl">
+            <DotLottieReact src="/freelancer.lottie" loop autoplay />
+          </div>
         </motion.div>
       </div>
     </section>
