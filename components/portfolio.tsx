@@ -35,7 +35,7 @@ export function Portfolio() {
       title: "Club 1BD Event Site",
       description: "New Webflow site launching international tour.",
       fullDescription:
-        "Custom Webflow site built to launch Club 1BD’s international tour, attracting 200k+ visitors and achieving sold-out events.",
+        "Custom Webflow site built to launch Club 1BD's international tour, attracting 200k+ visitors and achieving sold-out events.",
       image: "/projects/club1bd/homepage.png?height=400&width=600",
       technologies: ["Webflow", "Canva", "Relume"],
       results: "Over 200,000 unique visitors in the first 60 days, almost all shows sold out.",
@@ -46,7 +46,7 @@ export function Portfolio() {
       title: "Pull Systems Company Site",
       description: "Rapid Webflow redesign for enterprise appeal.",
       fullDescription:
-        "Rapid Webflow redesign transforming Pull Systems’ brand into an enterprise-focused experience, driving 20+ enterprise leads in one month.",
+        "Rapid Webflow redesign transforming Pull Systems' brand into an enterprise-focused experience, driving 20+ enterprise leads in one month.",
       image: "/projects/pullSystems/homepage.png?height=400&width=600",
       before: "/projects/pullSystems/before.png?height=300&width=500",
       after: "/projects/pullSystems/homepage.png?height=300&width=500",
@@ -148,10 +148,7 @@ export function Portfolio() {
                   </div>
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <Button
-                    variant="outline"
-                    className="border-white text-white hover:bg-white/20 hover:text-white"
-                  >
+                  <Button variant="ghost" className="bg-background/50 backdrop-blur-md">
                     View Project
                   </Button>
                 </div>

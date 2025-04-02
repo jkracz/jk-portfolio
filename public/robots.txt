@@ -1,0 +1,11 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://joekracz.com/sitemap.xml
+
+# Disallow crawling of development/admin routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/ 
