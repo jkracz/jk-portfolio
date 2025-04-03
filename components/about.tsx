@@ -120,7 +120,7 @@ export function About() {
                 rotate: [0, 5, 0],
               }}
               transition={{
-                duration: 6,
+                duration: 3,
                 repeat: Number.POSITIVE_INFINITY,
                 repeatType: "reverse",
               }}
@@ -138,10 +138,10 @@ export function About() {
                 rotate: [0, -5, 0],
               }}
               transition={{
-                duration: 5,
+                duration: 3,
                 repeat: Number.POSITIVE_INFINITY,
                 repeatType: "reverse",
-                delay: 1,
+                delay: 0.5,
               }}
             >
               <div className="flex items-center gap-2">

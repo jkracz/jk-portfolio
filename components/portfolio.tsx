@@ -82,15 +82,15 @@ export function Portfolio() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.4,
         ease: "easeOut",
-        delay: 0.2 + i * 0.1,
+        delay: 0.1 + i * 0.1,
       },
     }),
     hover: {
-      y: -10,
-      scale: 1.02,
-      transition: { duration: 0.3 },
+      y: -5,
+      scale: 1.01,
+      transition: { duration: 0.2 },
     },
   };
 

@@ -3,15 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
+import { Typewriter } from "@/components/ui/typewriter";
 
 export function Hero() {
-  const [text] = useTypewriter({
-    words: ["Websites", "Online Stores", "Mobile Apps"],
-    loop: true,
-    delaySpeed: 2000,
-  });
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -35,7 +29,7 @@ export function Hero() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -44,7 +38,7 @@ export function Hero() {
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { duration: 1, ease: "easeOut", delay: 0.5 },
+      transition: { duration: 0.6, ease: "easeOut", delay: 0.3 },
     },
   };
 
@@ -97,8 +91,10 @@ export function Hero() {
           animate="visible"
         >
           <motion.h1 className="h1" variants={itemVariants}>
-            <span className="text-primary">{text}</span>
-            <Cursor cursorStyle="_" />
+            <Typewriter
+              words={["Websites", "Online Stores", "Mobile Apps"]}
+              className="text-primary"
+            />
             <br />
             Built for Results.
           </motion.h1>
