@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.avif",
         width: 1200,
         height: 630,
         alt: "Joe Kracz - Freelance Developer",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: "Joe Kracz | Freelance Developer",
     description:
       "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.avif"],
     creator: "@joeykracz",
   },
   robots: {

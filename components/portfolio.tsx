@@ -36,7 +36,7 @@ export function Portfolio() {
       description: "New Webflow site launching international tour.",
       fullDescription:
         "Custom Webflow site built to launch Club 1BD's international tour, attracting 200k+ visitors and achieving sold-out events.",
-      image: "/projects/club1bd/homepage.png?height=400&width=600",
+      image: "/projects/club1bd/1bd-homepage.avif",
       technologies: ["Webflow", "Canva", "Relume"],
       results: "Over 200,000 unique visitors in the first 60 days, almost all shows sold out.",
       link: "https://www.club1bd.com/",
@@ -47,9 +47,9 @@ export function Portfolio() {
       description: "Rapid Webflow redesign for enterprise appeal.",
       fullDescription:
         "Rapid Webflow redesign transforming Pull Systems' brand into an enterprise-focused experience, driving 20+ enterprise leads in one month.",
-      image: "/projects/pullSystems/homepage.png?height=400&width=600",
-      before: "/projects/pullSystems/before.png?height=300&width=500",
-      after: "/projects/pullSystems/homepage.png?height=300&width=500",
+      image: "/projects/pullSystems/pull-homepage.avif",
+      before: "/projects/pullSystems/pull-before.avif",
+      after: "/projects/pullSystems/pull-homepage.avif",
       technologies: ["Webflow", "Figma", "API Integration", "Relume"],
       results: "Over 20 enterprise leads generated in the first month.",
       link: "https://www.pull.systems/",

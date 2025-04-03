@@ -105,7 +105,7 @@ export function About() {
           <motion.div className="relative h-[500px] rounded-xl" variants={imageVariants}>
             <div className="absolute inset-0 overflow-hidden rounded-xl">
               <Image
-                src="/joe-kracz.jpg"
+                src="/joe-kracz.avif"
                 alt="Joe Kracz"
                 fill
                 className="object-cover object-[center_20%]"
