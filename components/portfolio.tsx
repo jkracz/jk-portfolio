@@ -54,6 +54,17 @@ export function Portfolio() {
       results: "Over 20 enterprise leads generated in the first month.",
       link: "https://www.pull.systems/",
     },
+    {
+      id: 3,
+      title: "Furtado Global",
+      description: "A refined digital presence for a global entertainment brand.",
+      fullDescription:
+        "Designed and developed a Webflow site to elevate the Furtado Global brand, integrating third-party APIs and streamlined design elements. The launch drew over 500 visitors in the first week, signaling strong early engagement.",
+      image: "/projects/furtadoGlobal/furtado-global-homepage.avif",
+      technologies: ["Webflow", "API Integration", "Canva", "Relume"],
+      results: "500+ visitors in the first week of launch.",
+      link: "https://www.furtadoglobal.com/",
+    },
   ];
 
   const containerVariants = {
