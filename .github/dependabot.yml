@@ -5,16 +5,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    # Group all dependency updates together
     groups:
-      production-dependencies:
-        dependency-type: "production"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-      development-dependencies:
-        dependency-type: "development"
+      all-dependencies:
         update-types:
           - "major"
           - "minor"
