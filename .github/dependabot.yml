@@ -1,0 +1,36 @@
+version: 2
+updates:
+  # Enable version updates for npm/pnpm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Group all dependency updates together
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+      development-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+    # Ignore tailwindcss to stay on v3
+    ignore:
+      - dependency-name: "tailwindcss"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+    # Open PRs for grouped updates
+    open-pull-requests-limit: 10
+    # Commit message
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+
