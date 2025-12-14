@@ -6,6 +6,16 @@ import { motion } from "framer-motion";
 export function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState("default");
+  const [primaryColor, setPrimaryColor] = useState("hsl(221.2, 83.2%, 53.3%)");
+
+  useEffect(() => {
+    // Get the computed primary color from CSS variables
+    const root = document.documentElement;
+    const primaryValue = getComputedStyle(root).getPropertyValue("--primary").trim();
+    if (primaryValue) {
+      setPrimaryColor(`hsl(${primaryValue})`);
+    }
+  }, []);
 
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
@@ -45,7 +55,8 @@ export function CustomCursor() {
       y: mousePosition.y - 16,
       height: 32,
       width: 32,
-      backgroundColor: "rgba(var(--primary-rgb), 0.2)",
+      backgroundColor: primaryColor,
+      opacity: 0.2,
       mixBlendMode: "difference" as const,
     },
     hover: {
@@ -53,7 +64,8 @@ export function CustomCursor() {
       y: mousePosition.y - 24,
       height: 48,
       width: 48,
-      backgroundColor: "rgba(var(--primary-rgb), 0.4)",
+      backgroundColor: primaryColor,
+      opacity: 0.4,
       mixBlendMode: "difference" as const,
     },
   };
