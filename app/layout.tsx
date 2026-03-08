@@ -1,5 +1,4 @@
 import type React from "react";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
@@ -8,7 +7,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
-const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://joekracz.com"),
@@ -98,7 +96,6 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
       </body>
-      {googleAnalyticsId ? <GoogleAnalytics gaId={googleAnalyticsId} /> : null}
     </html>
   );
 }

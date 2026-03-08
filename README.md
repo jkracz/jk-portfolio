@@ -35,7 +35,7 @@ A modern, responsive portfolio website built with Next.js 16, React 19, and Tail
 - **Forms**: Web3Forms integration
 - **Type Safety**: TypeScript 5
 - **Package Manager**: PNPM
-- **Analytics**: Vercel Analytics, Vercel Speed Insights, Google Analytics
+- **Analytics**: Vercel Analytics and Vercel Speed Insights
 
 ## Getting Started
 
@@ -114,7 +114,6 @@ Components live in `components/`:
 Copy `.env.example` to `.env.local` and fill in the values you need:
 
 ```env
-NEXT_PUBLIC_GOOGLE_ID=your-google-analytics-id
 NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-web3forms-access-key
 ```
 
