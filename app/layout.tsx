@@ -8,6 +8,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://joekracz.com"),
@@ -97,7 +98,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ID ?? ""} />
+      {googleAnalyticsId ? <GoogleAnalytics gaId={googleAnalyticsId} /> : null}
     </html>
   );
 }

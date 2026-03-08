@@ -1,8 +1,6 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/hero";
 import { Header } from "@/components/header";
-import { CustomCursor } from "@/components/custom-cursor";
-import { ScrollProgress } from "@/components/scroll-progress";
 
 // Dynamic imports with loading states and priorities
 const DynamicServices = dynamic(() => import("@/components/services").then(mod => mod.Services), {
@@ -119,8 +117,6 @@ const DynamicFooter = dynamic(() => import("@/components/footer").then(mod => mo
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <CustomCursor />
-      <ScrollProgress />
       <Header />
       <main>
         <Hero />

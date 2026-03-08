@@ -150,6 +150,7 @@ export function Portfolio() {
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90">
@@ -191,6 +192,7 @@ export function Portfolio() {
                     src={selectedProject.image || "/placeholder.svg"}
                     alt={selectedProject.title}
                     fill
+                    sizes="(min-width: 1024px) 64rem, 100vw"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
@@ -220,6 +222,7 @@ export function Portfolio() {
                               src={selectedProject.before || "/placeholder.svg"}
                               alt="Before"
                               fill
+                              sizes="(min-width: 1024px) 32rem, 100vw"
                               className="object-cover"
                             />
                           </div>
@@ -231,6 +234,7 @@ export function Portfolio() {
                               src={selectedProject.after || "/placeholder.svg"}
                               alt="After"
                               fill
+                              sizes="(min-width: 1024px) 32rem, 100vw"
                               className="object-cover"
                             />
                           </div>

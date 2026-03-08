@@ -108,6 +108,7 @@ export function About() {
                 src="/joe-kracz.avif"
                 alt="Joe Kracz"
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover object-[center_20%]"
               />
               <div className="bg-linear-to-t absolute inset-0 from-black/30 to-transparent"></div>

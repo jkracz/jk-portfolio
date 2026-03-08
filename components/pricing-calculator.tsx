@@ -97,7 +97,7 @@ export function PricingCalculator() {
       (basePrice + featuresCost) * complexityMultiplier * timelineMultiplier
     );
     setEstimate(finalEstimate);
-  }, [projectType, features, complexity, timeline, estimate]);
+  }, [projectType, features, complexity, timeline]);
 
   // Input change handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
