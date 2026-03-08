@@ -2,35 +2,36 @@ import type { ServiceItem } from "@/types/content";
 
 export const services: ServiceItem[] = [
   {
-    slug: "shopify-development",
-    title: "Shopify Development",
-    description:
-      "Custom Shopify stores that convert visitors into customers with seamless checkout experiences.",
-    icon: "shopping-bag",
-    color: "from-blue-500/20 to-blue-600/5",
-  },
-  {
-    slug: "webflow-development",
-    title: "Webflow Development",
-    description:
-      "Stunning, responsive websites built with Webflow that are easy to update and maintain.",
-    icon: "layers",
-    color: "from-purple-500/20 to-purple-600/5",
-  },
-  {
-    slug: "react-development",
-    title: "React Development",
-    description:
-      "Fast, interactive web applications built with React that provide exceptional user experiences.",
+    slug: "custom-web-applications",
+    title: "Custom Web Applications",
+    description: "Full-stack apps built to scale",
     icon: "code",
     color: "from-primary/20 to-primary/5",
+    featured: true,
+    features: ["React", "Next.js", "Astro", "Node.js"],
   },
   {
-    slug: "react-native-development",
-    title: "React Native Development",
-    description:
-      "Cross-platform mobile apps that work seamlessly on both iOS and Android devices.",
+    slug: "mobile-applications",
+    title: "Mobile Applications",
+    description: "Native feel, single codebase",
     icon: "smartphone",
     color: "from-green-500/20 to-green-600/5",
+    features: ["React Native", "Expo", "iOS", "Android"],
+  },
+  {
+    slug: "ecommerce-solutions",
+    title: "E-Commerce",
+    description: "Stores that convert",
+    icon: "shopping-bag",
+    color: "from-amber-500/20 to-amber-600/5",
+    features: ["Shopify", "Custom Storefronts", "Payments"],
+  },
+  {
+    slug: "marketing-brand-sites",
+    title: "Marketing & Brand Sites",
+    description: "High impact, fast turnaround",
+    icon: "globe",
+    color: "from-purple-500/20 to-purple-600/5",
+    features: ["Webflow", "CMS", "SEO"],
   },
 ];

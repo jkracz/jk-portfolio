@@ -10,6 +10,8 @@ export const portfolioProjects: PortfolioProject[] = [
     image: "/projects/club1bd/1bd-homepage.avif",
     technologies: ["Webflow", "Canva", "Relume"],
     results: "Over 200,000 unique visitors in the first 60 days, almost all shows sold out.",
+    resultMetric: "200k+",
+    resultLabel: "visitors in 60 days",
     link: "https://www.club1bd.com/",
   },
   {
@@ -25,6 +27,8 @@ export const portfolioProjects: PortfolioProject[] = [
     },
     technologies: ["Webflow", "Figma", "API Integration", "Relume"],
     results: "Over 20 enterprise leads generated in the first month.",
+    resultMetric: "20+",
+    resultLabel: "enterprise leads",
     link: "https://www.pull.systems/",
   },
   {
@@ -36,6 +40,8 @@ export const portfolioProjects: PortfolioProject[] = [
     image: "/projects/furtadoGlobal/furtado-global-homepage.avif",
     technologies: ["Webflow", "API Integration", "Canva", "Relume"],
     results: "500+ visitors in the first week of launch.",
+    resultMetric: "500+",
+    resultLabel: "visitors in week 1",
     link: "https://www.furtadoglobal.com/",
   },
 ];

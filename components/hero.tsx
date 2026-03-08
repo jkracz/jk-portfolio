@@ -92,23 +92,23 @@ export function Hero() {
         >
           <motion.h1 className="h1" variants={itemVariants}>
             <Typewriter
-              words={["Websites", "Online Stores", "Mobile Apps"]}
+              words={["Web Apps", "Mobile Apps", "Digital Products"]}
               className="text-primary"
             />
             <br />
             Built for Results.
           </motion.h1>
           <motion.p className="text-lead text-muted-foreground" variants={itemVariants}>
-            Helping businesses launch, grow, and scale with high-quality development.
+            I build software that works. Fast, scalable, and tailored to what your business actually needs.
           </motion.p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <motion.div variants={buttonVariants} custom={0} whileHover="hover" whileTap="tap">
               <Button
                 size="lg"
-                onClick={() => scrollToSection("pricing")}
+                onClick={() => scrollToSection("contact")}
                 className="group relative overflow-hidden px-8 py-6 text-lg"
               >
-                <span className="relative z-10">Get an Estimate</span>
+                <span className="relative z-10">Get in Touch</span>
                 <span className="inset-block-0 inset-inline-0 absolute h-full w-0 bg-white/20 transition-all duration-300 ease-in-out group-hover:w-full"></span>
               </Button>
             </motion.div>

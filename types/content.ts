@@ -6,6 +6,8 @@ export type PortfolioProject = {
   image: string;
   technologies: string[];
   results: string;
+  resultMetric?: string;
+  resultLabel?: string;
   link?: string;
   transformation?: {
     before: string;
@@ -13,7 +15,7 @@ export type PortfolioProject = {
   };
 };
 
-export type ServiceIcon = "shopping-bag" | "layers" | "code" | "smartphone";
+export type ServiceIcon = "shopping-bag" | "layers" | "code" | "smartphone" | "globe" | "terminal";
 
 export type ServiceItem = {
   slug: string;
@@ -21,6 +23,8 @@ export type ServiceItem = {
   description: string;
   icon: ServiceIcon;
   color: string;
+  features?: string[];
+  featured?: boolean;
 };
 
 export type ProjectType = "website" | "webapp" | "mobileapp";

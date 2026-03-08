@@ -114,7 +114,7 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
-          {["services", "portfolio", "pricing", "about"].map((item, i) => (
+          {["services", "portfolio", "about"].map((item, i) => (
             <motion.button
               key={item}
               onClick={() => scrollToSection(item)}
@@ -186,7 +186,7 @@ export function Header() {
             exit="exit"
           >
             <div className="container flex flex-col gap-4 py-4">
-              {["services", "portfolio", "pricing", "about"].map((item, i) => (
+              {["services", "portfolio", "about"].map((item, i) => (
                 <motion.button
                   key={item}
                   onClick={() => scrollToSection(item)}

@@ -13,21 +13,21 @@ const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ID;
 export const metadata: Metadata = {
   metadataBase: new URL("https://joekracz.com"),
   title: {
-    default: "Joe Kracz | Freelance Developer",
+    default: "Joe Kracz | Software Engineer & Freelance Developer",
     template: "%s | Joe Kracz",
   },
   description:
-    "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
+    "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
   keywords: [
+    "software engineer",
     "freelance developer",
-    "web development",
+    "web application development",
     "mobile app development",
-    "Shopify development",
-    "Webflow development",
     "React development",
+    "Next.js developer",
     "React Native",
     "full stack developer",
-    "custom web solutions",
+    "custom web applications",
     "e-commerce development",
   ],
   authors: [{ name: "Joe Kracz" }],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     siteName: "Joe Kracz | Freelance Developer",
     title: "Joe Kracz | Freelance Developer",
     description:
-      "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
+      "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
     images: [
       {
         url: "/og-image.avif",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Joe Kracz | Freelance Developer",
     description:
-      "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
+      "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
     images: ["/og-image.avif"],
     creator: "@joeykracz",
   },

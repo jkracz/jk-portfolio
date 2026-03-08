@@ -22,6 +22,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { initialPricingFormData } from "@/content/pricing";
 import { calculateEstimate, getComplexityLabel } from "@/lib/pricing";
+import { submitWeb3Form, Web3FormsError } from "@/lib/web3forms";
 import type {
   FeatureKey,
   PricingConfig,
@@ -43,6 +44,8 @@ export function PricingCalculator({ config }: PricingCalculatorProps) {
   const [formData, setFormData] = useState<PricingFormData>(getInitialFormData);
   const [estimate, setEstimate] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -82,34 +85,38 @@ export function PricingCalculator({ config }: PricingCalculatorProps) {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const payload = {
-      name: formData.name,
-      email: formData.email,
-      projectType: formData.projectType,
-      feature_ecommerce: features.ecommerce ? "Yes" : "No",
-      feature_blog: features.blog ? "Yes" : "No",
-      feature_authentication: features.authentication ? "Yes" : "No",
-      feature_apiIntegration: features.apiIntegration ? "Yes" : "No",
-      complexity: getComplexityLabel(complexity, config),
-      timeline: formData.timeline,
-      estimate,
-      message: formData.message,
-    };
-    await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        ...payload,
-        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
-        subject: `Project estimate request from ${formData.name}`,
-      }),
-    });
-    setSubmitted(true);
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    try {
+      await submitWeb3Form({
+        form: e.currentTarget,
+        subject: `Project estimate request from ${formData.name || "Website visitor"}`,
+        fields: {
+          project_type: projectType,
+          feature_ecommerce: features.ecommerce ? "Yes" : "No",
+          feature_blog: features.blog ? "Yes" : "No",
+          feature_authentication: features.authentication ? "Yes" : "No",
+          feature_api_integration: features.apiIntegration ? "Yes" : "No",
+          complexity: getComplexityLabel(complexity, config),
+          timeline,
+          estimate,
+        },
+      });
+
+      setSubmitted(true);
+      setFormData(getInitialFormData());
+    } catch (error) {
+      setSubmitError(
+        error instanceof Web3FormsError
+          ? error.message
+          : "Unable to submit your quote request right now. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const containerVariants = {
@@ -286,7 +293,9 @@ export function PricingCalculator({ config }: PricingCalculatorProps) {
                         {estimate.toLocaleString()}
                       </motion.p>
                     </div>
-                    <p className="mt-2 text-sm text-muted-foreground">{config.estimateDisclaimer}</p>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {config.estimateDisclaimer}
+                    </p>
                   </div>
                 </div>
 
@@ -332,8 +341,20 @@ export function PricingCalculator({ config }: PricingCalculatorProps) {
                       />
                     </div>
 
-                    <Button type="submit" className="group relative w-full overflow-hidden">
-                      <span className="relative z-10">Get Detailed Quote</span>
+                    {submitError ? (
+                      <p className="text-sm text-destructive" role="alert">
+                        {submitError}
+                      </p>
+                    ) : null}
+
+                    <Button
+                      type="submit"
+                      className="group relative w-full overflow-hidden"
+                      disabled={isSubmitting}
+                    >
+                      <span className="relative z-10">
+                        {isSubmitting ? "Sending..." : "Get Detailed Quote"}
+                      </span>
                       <span className="absolute left-0 top-0 h-full w-0 bg-white/20 transition-all duration-300 ease-in-out group-hover:w-full"></span>
                     </Button>
                   </form>
@@ -364,6 +385,7 @@ export function PricingCalculator({ config }: PricingCalculatorProps) {
                       className="w-full"
                       onClick={() => {
                         setSubmitted(false);
+                        setSubmitError(null);
                         setFormData(getInitialFormData());
                       }}
                     >

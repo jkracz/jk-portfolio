@@ -24,9 +24,7 @@ export class Web3FormsError extends Error {
 }
 
 export function getWeb3FormsAccessKey() {
-  return (
-    process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? ""
-  );
+  return process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
 }
 
 export async function submitWeb3Form({
