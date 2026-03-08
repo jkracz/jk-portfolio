@@ -8,64 +8,18 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import type { PortfolioProject } from "@/types/content";
 
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  fullDescription: string;
-  image: string;
-  technologies: string[];
-  before?: string;
-  after?: string;
-  results: string;
-  link?: string;
+type PortfolioProps = {
+  projects: PortfolioProject[];
 };
 
-export function Portfolio() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+export function Portfolio({ projects }: PortfolioProps) {
+  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Club 1BD Event Site",
-      description: "New Webflow site launching international tour.",
-      fullDescription:
-        "Custom Webflow site built to launch Club 1BD's international tour, attracting 200k+ visitors and achieving sold-out events.",
-      image: "/projects/club1bd/1bd-homepage.avif",
-      technologies: ["Webflow", "Canva", "Relume"],
-      results: "Over 200,000 unique visitors in the first 60 days, almost all shows sold out.",
-      link: "https://www.club1bd.com/",
-    },
-    {
-      id: 2,
-      title: "Pull Systems Company Site",
-      description: "Rapid Webflow redesign for enterprise appeal.",
-      fullDescription:
-        "Rapid Webflow redesign transforming Pull Systems' brand into an enterprise-focused experience, driving 20+ enterprise leads in one month.",
-      image: "/projects/pullSystems/pull-homepage.avif",
-      before: "/projects/pullSystems/pull-before.avif",
-      after: "/projects/pullSystems/pull-homepage.avif",
-      technologies: ["Webflow", "Figma", "API Integration", "Relume"],
-      results: "Over 20 enterprise leads generated in the first month.",
-      link: "https://www.pull.systems/",
-    },
-    {
-      id: 3,
-      title: "Furtado Global",
-      description: "A refined digital presence for a global entertainment brand.",
-      fullDescription:
-        "Designed and developed a Webflow site to elevate the Furtado Global brand, integrating third-party APIs and streamlined design elements. The launch drew over 500 visitors in the first week, signaling strong early engagement.",
-      image: "/projects/furtadoGlobal/furtado-global-homepage.avif",
-      technologies: ["Webflow", "API Integration", "Canva", "Relume"],
-      results: "500+ visitors in the first week of launch.",
-      link: "https://www.furtadoglobal.com/",
-    },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -83,9 +37,9 @@ export function Portfolio() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
-  };
+  } as const;
 
   const projectVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -94,7 +48,7 @@ export function Portfolio() {
       y: 0,
       transition: {
         duration: 0.4,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         delay: 0.1 + i * 0.1,
       },
     }),
@@ -103,21 +57,21 @@ export function Portfolio() {
       scale: 1.01,
       transition: { duration: 0.2 },
     },
-  };
+  } as const;
 
   const dialogVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4, ease: "easeOut" as const },
     },
     exit: {
       opacity: 0,
       scale: 0.9,
-      transition: { duration: 0.3, ease: "easeIn" },
+      transition: { duration: 0.3, ease: "easeIn" as const },
     },
-  };
+  } as const;
 
   return (
     <section id="portfolio" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
@@ -138,7 +92,7 @@ export function Portfolio() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
           {projects.map((project, index) => (
             <motion.div
-              key={project.id}
+              key={project.slug}
               className="group relative cursor-pointer overflow-hidden rounded-xl shadow-md transition-all hover:shadow-xl"
               onClick={() => setSelectedProject(project)}
               variants={projectVariants}
@@ -211,7 +165,7 @@ export function Portfolio() {
                     <p className="text-body">{selectedProject.fullDescription}</p>
                   </div>
 
-                  {selectedProject.before && selectedProject.after && (
+                  {selectedProject.transformation && (
                     <div>
                       <h4 className="h5 mb-2">Transformation</h4>
                       <div className="grid grid-cols-2 gap-4">
@@ -219,7 +173,7 @@ export function Portfolio() {
                           <p className="text-caption mb-1 text-muted-foreground">Before</p>
                           <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
                             <Image
-                              src={selectedProject.before || "/placeholder.svg"}
+                              src={selectedProject.transformation.before}
                               alt="Before"
                               fill
                               sizes="(min-width: 1024px) 32rem, 100vw"
@@ -231,7 +185,7 @@ export function Portfolio() {
                           <p className="text-caption mb-1 text-muted-foreground">After</p>
                           <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
                             <Image
-                              src={selectedProject.after || "/placeholder.svg"}
+                              src={selectedProject.transformation.after}
                               alt="After"
                               fill
                               sizes="(min-width: 1024px) 32rem, 100vw"

@@ -1,6 +1,9 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/hero";
 import { Header } from "@/components/header";
+import { portfolioProjects } from "@/content/projects";
+import { pricingConfig } from "@/content/pricing";
+import { services } from "@/content/services";
 
 // Dynamic imports with loading states and priorities
 const DynamicServices = dynamic(() => import("@/components/services").then(mod => mod.Services), {
@@ -120,9 +123,9 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <DynamicServices />
-        <DynamicPortfolio />
-        <DynamicPricingCalculator />
+        <DynamicServices services={services} />
+        <DynamicPortfolio projects={portfolioProjects} />
+        <DynamicPricingCalculator config={pricingConfig} />
         <DynamicAbout />
         <DynamicContact />
       </main>

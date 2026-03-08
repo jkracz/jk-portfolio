@@ -1,50 +1,29 @@
 "use client";
 
+import type React from "react";
+
 import { ShoppingBag, Layers, Code, Smartphone } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import type { ServiceIcon, ServiceItem } from "@/types/content";
 
-export function Services() {
+type ServicesProps = {
+  services: ServiceItem[];
+};
+
+const iconMap: Record<ServiceIcon, React.ReactNode> = {
+  "shopping-bag": <ShoppingBag className="h-10 w-10 text-primary" />,
+  layers: <Layers className="h-10 w-10 text-primary" />,
+  code: <Code className="h-10 w-10 text-primary" />,
+  smartphone: <Smartphone className="h-10 w-10 text-primary" />,
+};
+
+export function Services({ services }: ServicesProps) {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  const services = [
-    {
-      title: "Shopify Development",
-      description:
-        "Custom Shopify stores that convert visitors into customers with seamless checkout experiences.",
-      icon: <ShoppingBag className="h-10 w-10 text-primary" />,
-      color: "from-blue-500/20 to-blue-600/5",
-      delay: 0.1,
-    },
-    {
-      title: "Webflow Development",
-      description:
-        "Stunning, responsive websites built with Webflow that are easy to update and maintain.",
-      icon: <Layers className="h-10 w-10 text-primary" />,
-      color: "from-purple-500/20 to-purple-600/5",
-      delay: 0.2,
-    },
-    {
-      title: "React Development",
-      description:
-        "Fast, interactive web applications built with React that provide exceptional user experiences.",
-      icon: <Code className="h-10 w-10 text-primary" />,
-      color: "from-primary/20 to-primary/5",
-      delay: 0.3,
-    },
-    {
-      title: "React Native Development",
-      description:
-        "Cross-platform mobile apps that work seamlessly on both iOS and Android devices.",
-      icon: <Smartphone className="h-10 w-10 text-primary" />,
-      color: "from-green-500/20 to-green-600/5",
-      delay: 0.4,
-    },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -62,9 +41,9 @@ export function Services() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
-  };
+  } as const;
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.9 },
@@ -74,7 +53,7 @@ export function Services() {
       scale: 1,
       transition: {
         duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as const,
         delay: 0.2 + i * 0.15,
       },
     }),
@@ -83,15 +62,15 @@ export function Services() {
       scale: 1.05,
       transition: { duration: 0.3 },
     },
-  };
+  } as const;
 
-  const iconVariants = {
+  const iconVariants: Variants = {
     hidden: { scale: 0, rotate: -30 },
     visible: {
       scale: 1,
       rotate: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 200,
         damping: 10,
       },
@@ -124,7 +103,7 @@ export function Services() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.slug}
               custom={index}
               variants={cardVariants}
               whileHover="hover"
@@ -145,7 +124,7 @@ export function Services() {
                     whileHover="hover"
                   >
                     <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                    <div className="relative">{service.icon}</div>
+                    <div className="relative">{iconMap[service.icon]}</div>
                   </motion.div>
                   <CardTitle className="h5 transition-colors duration-300 group-hover:text-primary">
                     {service.title}
