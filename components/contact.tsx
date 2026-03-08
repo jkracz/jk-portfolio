@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label";
 import { Github, Linkedin, Twitter, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { submitWeb3Form, Web3FormsError } from "@/lib/web3forms";
+
 export function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,6 +20,7 @@ export function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -28,28 +31,28 @@ export function Contact() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitError(null);
     setIsSubmitting(true);
 
-    await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-        subject: `Contact form submission from ${formData.name}`,
-      }),
-    });
+    try {
+      await submitWeb3Form({
+        form: e.currentTarget,
+        subject: `New dev consulting inquiry: ${formData.name || "New inquiry"}`,
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      setSubmitError(
+        error instanceof Web3FormsError
+          ? error.message
+          : "Unable to send your message right now. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const containerVariants = {
@@ -68,9 +71,9 @@ export function Contact() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
-  };
+  } as const;
 
   const contentVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -79,11 +82,11 @@ export function Contact() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         delay: 0.2 + i * 0.1,
       },
     }),
-  };
+  } as const;
 
   const socialVariants = {
     hidden: { opacity: 0, scale: 0 },
@@ -91,7 +94,7 @@ export function Contact() {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 260,
         damping: 20,
         delay: 0.5 + i * 0.1,
@@ -101,7 +104,7 @@ export function Contact() {
       scale: 1.2,
       transition: { duration: 0.2 },
     },
-  };
+  } as const;
 
   const successVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -109,12 +112,12 @@ export function Contact() {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 200,
         damping: 20,
       },
     },
-  };
+  } as const;
 
   return (
     <section id="contact" className="relative overflow-hidden py-16 md:py-24">
@@ -250,6 +253,12 @@ export function Contact() {
                   />
                 </div>
 
+                {submitError ? (
+                  <p className="text-sm text-destructive" role="alert">
+                    {submitError}
+                  </p>
+                ) : null}
+
                 <Button
                   type="submit"
                   className="group relative w-full overflow-hidden"
@@ -260,7 +269,7 @@ export function Contact() {
                       "Sending..."
                     ) : (
                       <>
-                        Send Message
+                        Get in Touch
                         <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </>
                     )}
