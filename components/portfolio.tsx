@@ -111,7 +111,7 @@ export function Portfolio({ projects }: PortfolioProps) {
                   {/* Result metric badge */}
                   {project.resultMetric && (
                     <div className="absolute bottom-3 left-3 rounded-lg bg-white/15 px-3 py-1.5 backdrop-blur-md">
-                      <span className="block text-lg font-bold leading-tight text-white">
+                      <span className="block font-heading text-lg font-bold leading-tight text-white">
                         {project.resultMetric}
                       </span>
                       <span className="block text-[11px] leading-tight text-white/70">
@@ -128,9 +128,7 @@ export function Portfolio({ projects }: PortfolioProps) {
 
                 {/* Info area */}
                 <div className="p-5">
-                  <h3 className="mb-1 text-base font-semibold tracking-tight">
-                    {project.title}
-                  </h3>
+                  <h3 className="mb-1 text-base font-semibold tracking-tight">{project.title}</h3>
                   <p className="mb-3 text-sm text-muted-foreground">{project.description}</p>
                   <p className="text-xs tracking-wide text-muted-foreground/50">
                     {project.technologies.join(" · ")}

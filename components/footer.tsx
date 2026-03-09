@@ -57,12 +57,10 @@ export function Footer() {
       <div className="container relative">
         <div className="flex flex-col items-center justify-between md:flex-row">
           <motion.div className="mb-4 md:mb-0" variants={itemVariants}>
-            <Link href="/" className="text-xl font-bold">
+            <Link href="/" className="font-heading text-xl font-bold">
               Joe Kracz
             </Link>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Custom software built for results
-            </p>
+            <p className="mt-1 text-sm text-muted-foreground">Custom software built for results</p>
           </motion.div>
 
           <motion.nav className="mb-4 flex gap-8 md:mb-0" variants={itemVariants}>

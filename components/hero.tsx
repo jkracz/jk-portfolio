@@ -99,7 +99,8 @@ export function Hero() {
             Built for Results.
           </motion.h1>
           <motion.p className="text-lead text-muted-foreground" variants={itemVariants}>
-            I build software that works. Fast, scalable, and tailored to what your business actually needs.
+            Software that actually works. Fast, scalable, and tailored to what your business in the
+            age of AI.
           </motion.p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <motion.div variants={buttonVariants} custom={0} whileHover="hover" whileTap="tap">

@@ -285,7 +285,7 @@ export function PricingCalculator({ config }: PricingCalculatorProps) {
                       <DollarSign className="mr-1 h-6 w-6 text-primary" />
                       <motion.p
                         key={estimate}
-                        className="text-4xl font-bold"
+                        className="font-heading text-4xl font-bold"
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
