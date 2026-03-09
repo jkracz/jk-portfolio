@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -105,16 +106,20 @@ export function Header() {
       variants={headerVariants}
     >
       <div className="container flex h-16 items-center justify-between md:h-20">
-        <Link href="/" className="group relative text-xl font-bold">
-          <span className="relative z-10 bg-gradient-to-r from-primary via-blue-500 to-violet-500 bg-clip-text text-2xl text-transparent">
-            Joe Kracz
-          </span>
-          <span className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-primary via-blue-500 to-violet-500 transition-all duration-300 ease-in-out group-hover:w-full"></span>
+        <Link href="/" className="group relative">
+          <Image
+            src="/jk-logo.png"
+            alt="JK"
+            width={40}
+            height={40}
+            className="rounded-lg transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/25 group-hover:brightness-110"
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
-          {["services", "portfolio", "pricing", "about"].map((item, i) => (
+          {["services", "portfolio", "about"].map((item, i) => (
             <motion.button
               key={item}
               onClick={() => scrollToSection(item)}
@@ -186,7 +191,7 @@ export function Header() {
             exit="exit"
           >
             <div className="container flex flex-col gap-4 py-4">
-              {["services", "portfolio", "pricing", "about"].map((item, i) => (
+              {["services", "portfolio", "about"].map((item, i) => (
                 <motion.button
                   key={item}
                   onClick={() => scrollToSection(item)}

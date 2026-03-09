@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/hero";
 import { Header } from "@/components/header";
-import { CustomCursor } from "@/components/custom-cursor";
-import { ScrollProgress } from "@/components/scroll-progress";
+import { portfolioProjects } from "@/content/projects";
+import { services } from "@/content/services";
 
 // Dynamic imports with loading states and priorities
 const DynamicServices = dynamic(() => import("@/components/services").then(mod => mod.Services), {
@@ -46,26 +46,6 @@ const DynamicPortfolio = dynamic(
   }
 );
 
-const DynamicPricingCalculator = dynamic(
-  () => import("@/components/pricing-calculator").then(mod => mod.PricingCalculator),
-  {
-    loading: () => (
-      <div className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
-        <div className="container">
-          <div className="mx-auto mb-12 max-w-3xl animate-pulse space-y-4 text-center">
-            <div className="h-12 w-64 rounded bg-muted"></div>
-            <div className="h-20 rounded bg-muted"></div>
-          </div>
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="h-[400px] animate-pulse rounded-xl bg-muted"></div>
-            <div className="h-[400px] animate-pulse rounded-xl bg-muted"></div>
-          </div>
-        </div>
-      </div>
-    ),
-    ssr: true, // Priority 3
-  }
-);
 
 const DynamicAbout = dynamic(() => import("@/components/about").then(mod => mod.About), {
   loading: () => (
@@ -119,14 +99,11 @@ const DynamicFooter = dynamic(() => import("@/components/footer").then(mod => mo
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <CustomCursor />
-      <ScrollProgress />
       <Header />
       <main>
         <Hero />
-        <DynamicServices />
-        <DynamicPortfolio />
-        <DynamicPricingCalculator />
+        <DynamicServices services={services} />
+        <DynamicPortfolio projects={portfolioProjects} />
         <DynamicAbout />
         <DynamicContact />
       </main>

@@ -1,31 +1,39 @@
 import type React from "react";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Instrument_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-body",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://joekracz.com"),
   title: {
-    default: "Joe Kracz | Freelance Developer",
+    default: "Joe Kracz | Software Engineer & Freelance Developer",
     template: "%s | Joe Kracz",
   },
   description:
-    "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
+    "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
   keywords: [
+    "software engineer",
     "freelance developer",
-    "web development",
+    "web application development",
     "mobile app development",
-    "Shopify development",
-    "Webflow development",
     "React development",
+    "Next.js developer",
     "React Native",
     "full stack developer",
-    "custom web solutions",
+    "custom web applications",
     "e-commerce development",
   ],
   authors: [{ name: "Joe Kracz" }],
@@ -43,7 +51,7 @@ export const metadata: Metadata = {
     siteName: "Joe Kracz | Freelance Developer",
     title: "Joe Kracz | Freelance Developer",
     description:
-      "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
+      "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
     images: [
       {
         url: "/og-image.avif",
@@ -57,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Joe Kracz | Freelance Developer",
     description:
-      "Websites, Online Stores, and Mobile Apps Built for Results. Specializing in Shopify, Webflow, React, and React Native development.",
+      "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
     images: ["/og-image.avif"],
     creator: "@joeykracz",
   },
@@ -84,7 +92,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${instrumentSans.variable} ${geistMono.variable} font-body`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -93,11 +101,9 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Analytics />
         <SpeedInsights />
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ID ?? ""} />
     </html>
   );
 }
-
-import "./globals.css";

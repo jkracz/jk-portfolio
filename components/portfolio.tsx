@@ -4,68 +4,21 @@ import { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import type { PortfolioProject } from "@/types/content";
 
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  fullDescription: string;
-  image: string;
-  technologies: string[];
-  before?: string;
-  after?: string;
-  results: string;
-  link?: string;
+type PortfolioProps = {
+  projects: PortfolioProject[];
 };
 
-export function Portfolio() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+export function Portfolio({ projects }: PortfolioProps) {
+  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Club 1BD Event Site",
-      description: "New Webflow site launching international tour.",
-      fullDescription:
-        "Custom Webflow site built to launch Club 1BD's international tour, attracting 200k+ visitors and achieving sold-out events.",
-      image: "/projects/club1bd/1bd-homepage.avif",
-      technologies: ["Webflow", "Canva", "Relume"],
-      results: "Over 200,000 unique visitors in the first 60 days, almost all shows sold out.",
-      link: "https://www.club1bd.com/",
-    },
-    {
-      id: 2,
-      title: "Pull Systems Company Site",
-      description: "Rapid Webflow redesign for enterprise appeal.",
-      fullDescription:
-        "Rapid Webflow redesign transforming Pull Systems' brand into an enterprise-focused experience, driving 20+ enterprise leads in one month.",
-      image: "/projects/pullSystems/pull-homepage.avif",
-      before: "/projects/pullSystems/pull-before.avif",
-      after: "/projects/pullSystems/pull-homepage.avif",
-      technologies: ["Webflow", "Figma", "API Integration", "Relume"],
-      results: "Over 20 enterprise leads generated in the first month.",
-      link: "https://www.pull.systems/",
-    },
-    {
-      id: 3,
-      title: "Furtado Global",
-      description: "A refined digital presence for a global entertainment brand.",
-      fullDescription:
-        "Designed and developed a Webflow site to elevate the Furtado Global brand, integrating third-party APIs and streamlined design elements. The launch drew over 500 visitors in the first week, signaling strong early engagement.",
-      image: "/projects/furtadoGlobal/furtado-global-homepage.avif",
-      technologies: ["Webflow", "API Integration", "Canva", "Relume"],
-      results: "500+ visitors in the first week of launch.",
-      link: "https://www.furtadoglobal.com/",
-    },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -83,9 +36,9 @@ export function Portfolio() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
-  };
+  } as const;
 
   const projectVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -93,31 +46,26 @@ export function Portfolio() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4,
-        ease: "easeOut",
-        delay: 0.1 + i * 0.1,
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1] as const,
+        delay: 0.15 + i * 0.12,
       },
     }),
-    hover: {
-      y: -5,
-      scale: 1.01,
-      transition: { duration: 0.2 },
-    },
-  };
+  } as const;
 
   const dialogVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4, ease: "easeOut" as const },
     },
     exit: {
       opacity: 0,
       scale: 0.9,
-      transition: { duration: 0.3, ease: "easeIn" },
+      transition: { duration: 0.3, ease: "easeIn" as const },
     },
-  };
+  } as const;
 
   return (
     <section id="portfolio" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
@@ -128,52 +76,63 @@ export function Portfolio() {
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
       >
-        <motion.div className="mx-auto mb-12 max-w-3xl text-center" variants={headerVariants}>
+        <motion.div className="mx-auto mb-14 max-w-2xl text-center" variants={headerVariants}>
           <h2 className="h2 mb-4">Featured Projects</h2>
           <p className="text-lead text-muted-foreground">
-            A selection of my recent work delivering impactful solutions for clients across various
-            industries.
+            Recent work delivering real results for clients.
           </p>
         </motion.div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
+
+        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <motion.div
-              key={project.id}
-              className="group relative cursor-pointer overflow-hidden rounded-xl shadow-md transition-all hover:shadow-xl"
-              onClick={() => setSelectedProject(project)}
-              variants={projectVariants}
+              key={project.slug}
               custom={index}
-              whileHover="hover"
+              variants={projectVariants}
+              whileHover={{ y: -8 }}
+              transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
+              className="group cursor-pointer"
+              onClick={() => setSelectedProject(project)}
             >
-              <div className="relative h-64 w-full overflow-hidden">
-                <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="h4 mb-1 text-white">{project.title}</h3>
-                    <p className="text-caption mb-2 text-white/80">{project.description}</p>
+              <div className="relative h-full overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm transition-shadow duration-500 group-hover:shadow-xl">
+                {/* Image area */}
+                <div className="relative h-56 w-full overflow-hidden sm:h-64">
+                  <Image
+                    src={project.image || "/placeholder.svg"}
+                    alt={project.title}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+
+                  {/* Result metric badge */}
+                  {project.resultMetric && (
+                    <div className="absolute bottom-3 left-3 rounded-lg bg-white/15 px-3 py-1.5 backdrop-blur-md">
+                      <span className="block font-heading text-lg font-bold leading-tight text-white">
+                        {project.resultMetric}
+                      </span>
+                      <span className="block text-[11px] leading-tight text-white/70">
+                        {project.resultLabel}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Hover arrow */}
+                  <div className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/15 opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+                    <ArrowUpRight className="h-4 w-4 text-white" />
                   </div>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <Button variant="ghost" className="bg-background/50 backdrop-blur-md">
-                    View Project
-                  </Button>
-                </div>
-              </div>
-              <div className="bg-card p-4">
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 3).map((tech, index) => (
-                    <Badge key={index} variant="secondary" className="bg-secondary/50">
-                      {tech}
-                    </Badge>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <Badge variant="outline">+{project.technologies.length - 3}</Badge>
-                  )}
+
+                {/* Info area */}
+                <div className="p-5">
+                  <h3 className="mb-1 text-base font-semibold tracking-tight">{project.title}</h3>
+                  <p className="mb-3 text-sm text-muted-foreground">{project.description}</p>
+                  <p className="text-xs tracking-wide text-muted-foreground/50">
+                    {project.technologies.join(" · ")}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -191,13 +150,14 @@ export function Portfolio() {
                     src={selectedProject.image || "/placeholder.svg"}
                     alt={selectedProject.title}
                     fill
+                    sizes="(min-width: 1024px) 64rem, 100vw"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
                     <div className="absolute bottom-4 left-6 right-6">
                       <DialogTitle className="h3 text-white">{selectedProject.title}</DialogTitle>
                       <DialogDescription className="text-body text-white/80">
-                        {selectedProject.technologies.join(" • ")}
+                        {selectedProject.technologies.join(" · ")}
                       </DialogDescription>
                     </div>
                   </div>
@@ -209,7 +169,7 @@ export function Portfolio() {
                     <p className="text-body">{selectedProject.fullDescription}</p>
                   </div>
 
-                  {selectedProject.before && selectedProject.after && (
+                  {selectedProject.transformation && (
                     <div>
                       <h4 className="h5 mb-2">Transformation</h4>
                       <div className="grid grid-cols-2 gap-4">
@@ -217,9 +177,10 @@ export function Portfolio() {
                           <p className="text-caption mb-1 text-muted-foreground">Before</p>
                           <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
                             <Image
-                              src={selectedProject.before || "/placeholder.svg"}
+                              src={selectedProject.transformation.before}
                               alt="Before"
                               fill
+                              sizes="(min-width: 1024px) 32rem, 100vw"
                               className="object-cover"
                             />
                           </div>
@@ -228,9 +189,10 @@ export function Portfolio() {
                           <p className="text-caption mb-1 text-muted-foreground">After</p>
                           <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
                             <Image
-                              src={selectedProject.after || "/placeholder.svg"}
+                              src={selectedProject.transformation.after}
                               alt="After"
                               fill
+                              sizes="(min-width: 1024px) 32rem, 100vw"
                               className="object-cover"
                             />
                           </div>

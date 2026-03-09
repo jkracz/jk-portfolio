@@ -1,48 +1,43 @@
 # Joe Kracz Portfolio Website
 
-A modern, responsive portfolio website built with Next.js 16, React 19, and Tailwind CSS featuring a beautiful UI with animations, dark mode support, and interactive elements.
+A modern, responsive portfolio website built with Next.js 16, React 19, and Tailwind CSS featuring animations, dark mode support, and interactive elements.
 
-## 🚀 Features
+## Features
 
 - **Modern Tech Stack**: Next.js 16, React 19, TypeScript
 - **Responsive Design**: Mobile-first approach with responsive layouts
 - **Dark Mode**: Full theme support with next-themes
 - **Interactive UI**:
-  - Custom cursor effects
   - Smooth scroll animations and progress indicator
-  - Interactive pricing calculator
   - Contact form with Web3Forms integration
   - Lottie animations
 - **Performance Optimized**: Built with Next.js App Router and TurboPack
 - **SEO Optimized**: Sitemap generation and metadata configuration
 - **Accessibility**: Built with a11y best practices using Radix UI primitives
 
-## 📋 Sections
+## Sections
 
-- **Hero**: Eye-catching introduction with typewriter effect and Lottie animation
-- **Services**: Showcase of professional services
-- **Portfolio**: Display of past work and projects with modal details
-- **Pricing Calculator**: Interactive tool for estimating project costs
-- **About**: Professional background and skills
-- **Testimonials**: Client testimonials carousel
-- **Contact**: Contact form and information
+- **Hero**: Introduction with typewriter effect and Lottie animation
+- **Services**: Overview of capabilities (web apps, mobile, e-commerce, marketing sites)
+- **Portfolio**: Featured projects with result metrics and modal details
+- **About**: Background, experience, and technology stack
+- **Contact**: Contact form and social links
 - **Footer**: Site navigation and social links
 
-## 🔧 Tech Stack
+## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
 - **UI Library**: React 19
 - **Styling**: Tailwind CSS 3.4
 - **UI Components**: Radix UI primitives
-- **Animations**: Framer Motion
+- **Animations**: Framer Motion, DotLottie React
 - **Icons**: Lucide React
-- **Animations**: DotLottie React (Lottie animations)
-- **Forms**: Native HTML forms with Web3Forms integration
+- **Forms**: Web3Forms integration
 - **Type Safety**: TypeScript 5
 - **Package Manager**: PNPM
-- **Analytics**: Vercel Speed Insights, Google Analytics
+- **Analytics**: Vercel Analytics and Vercel Speed Insights
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -81,7 +76,7 @@ pnpm build
 pnpm start
 ```
 
-## 📝 Scripts
+## Scripts
 
 - `pnpm dev` - Start development server with TurboPack
 - `pnpm build` - Build for production
@@ -91,7 +86,7 @@ pnpm start
 - `pnpm format` - Format code with Prettier
 - `pnpm format:check` - Check code formatting
 
-## 🎨 Customization
+## Customization
 
 ### Styling
 
@@ -101,34 +96,27 @@ The site uses Tailwind CSS with a custom theme defined in:
 
 ### Content
 
-Edit component files in the `components/` directory to modify content:
-- `hero.tsx` - Main hero section with typewriter and animation
-- `services.tsx` - Services section
+Content is separated from components in the `content/` directory:
+- `content/projects.ts` - Portfolio project data
+- `content/services.ts` - Service definitions
+
+Components live in `components/`:
+- `hero.tsx` - Hero section with typewriter and Lottie animation
+- `services.tsx` - Services grid
 - `portfolio.tsx` - Portfolio projects with modal details
-- `pricing-calculator.tsx` - Interactive pricing calculator
-- `about.tsx` - About information
-- `testimonials.tsx` - Client testimonials
-- `contact.tsx` - Contact details and form
-- `footer.tsx` - Footer content and links
+- `about.tsx` - About section with technology grid
+- `contact.tsx` - Contact form
 - `header.tsx` - Navigation header
+- `footer.tsx` - Footer
 
 ### Environment Variables
 
-Create a `.env.local` file for environment-specific configuration:
+Copy `.env.example` to `.env.local` and fill in the values you need:
 
 ```env
-NEXT_PUBLIC_GOOGLE_ID=your-google-analytics-id
-NEXT_PUBLIC_WEB3FORMS_KEY=your-web3forms-key
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-web3forms-access-key
 ```
 
-## 📱 Responsive Design
-
-The site is fully responsive and optimized for:
-- Mobile devices (320px+)
-- Tablets (768px+)
-- Desktops (1024px+)
-- Large screens (1400px+)
-
-## 📄 License
+## License
 
 [MIT License](LICENSE)
