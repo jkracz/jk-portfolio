@@ -1,122 +1,66 @@
-# Joe Kracz Portfolio Website
+# joekracz.com
 
-A modern, responsive portfolio website built with Next.js 16, React 19, and Tailwind CSS featuring animations, dark mode support, and interactive elements.
+Personal portfolio site for Joe Kracz -- freelance software engineer. Built with Next.js 16, React 19, and Tailwind CSS.
 
-## Features
-
-- **Modern Tech Stack**: Next.js 16, React 19, TypeScript
-- **Responsive Design**: Mobile-first approach with responsive layouts
-- **Dark Mode**: Full theme support with next-themes
-- **Interactive UI**:
-  - Smooth scroll animations and progress indicator
-  - Contact form with Web3Forms integration
-  - Lottie animations
-- **Performance Optimized**: Built with Next.js App Router and TurboPack
-- **SEO Optimized**: Sitemap generation and metadata configuration
-- **Accessibility**: Built with a11y best practices using Radix UI primitives
-
-## Sections
-
-- **Hero**: Introduction with typewriter effect and Lottie animation
-- **Services**: Overview of capabilities (web apps, mobile, e-commerce, marketing sites)
-- **Portfolio**: Featured projects with result metrics and modal details
-- **About**: Background, experience, and technology stack
-- **Contact**: Contact form and social links
-- **Footer**: Site navigation and social links
+Live at [joekracz.com](https://joekracz.com).
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **UI Library**: React 19
-- **Styling**: Tailwind CSS 3.4
-- **UI Components**: Radix UI primitives
-- **Animations**: Framer Motion, DotLottie React
-- **Icons**: Lucide React
-- **Forms**: Web3Forms integration
-- **Type Safety**: TypeScript 5
-- **Package Manager**: PNPM
-- **Analytics**: Vercel Analytics and Vercel Speed Insights
+- **Next.js 16** (App Router, TurboPack)
+- **React 19** with TypeScript
+- **Tailwind CSS 3.4** with custom theme
+- **Radix UI** + shadcn/ui for accessible components
+- **Framer Motion** for animations
+- **Web3Forms** for contact form submissions
+- **Vercel** for hosting, analytics, and speed insights
+
+## Project Structure
+
+```
+app/              Next.js App Router (layout, page, global styles, sitemap)
+components/       Page sections (hero, services, portfolio, about, contact)
+  ui/             Reusable UI primitives (button, dialog, input, etc.)
+content/          Data files for services, projects, and pricing
+lib/              Utilities and API helpers
+types/            TypeScript type definitions
+public/           Static assets (images, icons, Lottie files)
+```
+
+Content is separated from presentation -- update `content/projects.ts` and `content/services.ts` to change what's displayed without touching components.
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18+ (LTS recommended)
-- PNPM (recommended) or NPM
-
-### Installation
+Requires Node.js 18+ and PNPM.
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-
-# Navigate to the project directory
-cd jk-portfolio
-
-# Install dependencies
 pnpm install
+pnpm dev          # http://localhost:3000
 ```
 
-### Development
+Create a `.env.local` for the contact form:
 
-```bash
-# Start the development server with TurboPack
-pnpm dev
-
-# The site will be available at http://localhost:3000
-```
-
-### Production Build
-
-```bash
-# Create an optimized production build
-pnpm build
-
-# Run the production build locally
-pnpm start
+```env
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-key-here
 ```
 
 ## Scripts
 
-- `pnpm dev` - Start development server with TurboPack
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
-- `pnpm lint:fix` - Fix linting issues automatically
-- `pnpm format` - Format code with Prettier
-- `pnpm format:check` - Check code formatting
+| Command              | Description                    |
+| -------------------- | ------------------------------ |
+| `pnpm dev`           | Start dev server (TurboPack)   |
+| `pnpm build`         | Production build               |
+| `pnpm start`         | Serve production build         |
+| `pnpm lint`          | Run ESLint                     |
+| `pnpm lint:fix`      | Auto-fix lint issues           |
+| `pnpm format`        | Format with Prettier           |
+| `pnpm format:check`  | Check formatting               |
 
-## Customization
+## Styling
 
-### Styling
+Theme configuration lives in `tailwind.config.ts` and `app/globals.css`. The site supports dark and light modes via `next-themes` with system preference detection.
 
-The site uses Tailwind CSS with a custom theme defined in:
-- `tailwind.config.ts` - Theme configuration and custom utilities
-- `app/globals.css` - Global styles, CSS variables, and custom utilities
-
-### Content
-
-Content is separated from components in the `content/` directory:
-- `content/projects.ts` - Portfolio project data
-- `content/services.ts` - Service definitions
-
-Components live in `components/`:
-- `hero.tsx` - Hero section with typewriter and Lottie animation
-- `services.tsx` - Services grid
-- `portfolio.tsx` - Portfolio projects with modal details
-- `about.tsx` - About section with technology grid
-- `contact.tsx` - Contact form
-- `header.tsx` - Navigation header
-- `footer.tsx` - Footer
-
-### Environment Variables
-
-Copy `.env.example` to `.env.local` and fill in the values you need:
-
-```env
-NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-web3forms-access-key
-```
+Fonts: Instrument Sans (headings) and Geist Mono (body).
 
 ## License
 
-[MIT License](LICENSE)
+[MIT](LICENSE)
