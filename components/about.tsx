@@ -85,16 +85,15 @@ export function About() {
                   turning ideas into real products that people use.
                 </p>
                 <p className="text-body-large mb-4">
-                  I studied Computer Science at NYU and have spent my career building software across
-                  the stack, from leading engineering teams and architecting systems to shipping
-                  production code myself. I bring both the technical depth and the product intuition
-                  to make the right tradeoffs.
+                  I have spent my career building software across the stack, from leading
+                  engineering teams and architecting systems to shipping production code myself. I
+                  bring both the technical depth and the product intuition to make the right
+                  tradeoffs.
                 </p>
                 <p className="text-body-large mb-4">
                   Whether it's a custom web application, a mobile app, an e-commerce store, or a
-                  marketing site, I pick the right tool for the job and build it well. React,
-                  Next.js, Astro, Webflow, Shopify. The technology serves the goal, not the other
-                  way around.
+                  marketing site, I pick the right tool for the job and build it well. The
+                  technology serves the goal, not the other way around.
                 </p>
               </div>
             </motion.div>
@@ -135,7 +134,8 @@ export function About() {
                 alt="Joe Kracz"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover object-[center_20%]"
+                unoptimized
+                className="scale-[1.01] object-cover object-[center_20%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </div>
