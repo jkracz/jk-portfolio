@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 export function Footer() {
@@ -83,17 +83,17 @@ export function Footer() {
           <motion.div className="flex space-x-4" variants={itemVariants}>
             {[
               {
-                icon: <Github className="h-5 w-5" />,
+                icon: <FaGithub className="h-5 w-5" />,
                 label: "GitHub",
                 href: "https://github.com/jkracz",
               },
               {
-                icon: <Linkedin className="h-5 w-5" />,
+                icon: <FaLinkedin className="h-5 w-5" />,
                 label: "LinkedIn",
                 href: "https://www.linkedin.com/in/joe-kracz-219829119/",
               },
               {
-                icon: <Twitter className="h-5 w-5" />,
+                icon: <FaXTwitter className="h-5 w-5" />,
                 label: "Twitter",
                 href: "https://x.com/joey_kracz",
               },

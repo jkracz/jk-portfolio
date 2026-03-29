@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Github, Linkedin, Twitter, Send } from "lucide-react";
+import { Send } from "lucide-react";
+import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { submitWeb3Form, Web3FormsError } from "@/lib/web3forms";
@@ -177,7 +178,7 @@ export function Contact() {
                     custom={0}
                     whileHover="hover"
                   >
-                    <Github className="h-5 w-5" />
+                    <FaGithub className="h-5 w-5" />
                     <span className="sr-only">GitHub</span>
                   </motion.a>
                   <motion.a
@@ -189,7 +190,7 @@ export function Contact() {
                     custom={1}
                     whileHover="hover"
                   >
-                    <Linkedin className="h-5 w-5" />
+                    <FaLinkedin className="h-5 w-5" />
                     <span className="sr-only">LinkedIn</span>
                   </motion.a>
                   <motion.a
@@ -201,7 +202,7 @@ export function Contact() {
                     custom={2}
                     whileHover="hover"
                   >
-                    <Twitter className="h-5 w-5" />
+                    <FaXTwitter className="h-5 w-5" />
                     <span className="sr-only">Twitter</span>
                   </motion.a>
                 </div>
