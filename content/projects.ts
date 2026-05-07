@@ -2,6 +2,29 @@ import type { PortfolioProject } from "@/types/content";
 
 export const portfolioProjects: PortfolioProject[] = [
   {
+    slug: "zinegeist",
+    title: "Zinegeist",
+    description:
+      "Designed and shipped a focused publishing platform for independent writers, centered on ownership, readability, and durable web presence.",
+    fullDescription:
+      "Led end-to-end product development of Zinegeist, a writer-first publishing app that replaces feed-driven discovery with an editorial shelf model. Built core creation and consumption workflows: PDF upload and publishing, permanent profile shelves, publication detail/read experiences, and profile management. Implemented subscription infrastructure with Free and Plus capacity tiers (5 to 1,000 publications) to support long-term creator growth and monetization readiness, while maintaining a calm, low-noise UX aligned with the product thesis.",
+    image: "/projects/zinegeist/zinegeistHero.avif",
+    technologies: [
+      "SvelteKit",
+      "Convex",
+      "TypeScript",
+      "Better Auth",
+      "Tailwind CSS",
+      "Polar",
+      "PostHog",
+    ],
+    results:
+      "Delivered a production-ready MVP with complete writer publishing lifecycle and monetization rails.",
+    resultMetric: "5 -> 1,000",
+    resultLabel: "publication capacity per writer (Free to Plus)",
+    link: "https://zinegeist.club",
+  },
+  {
     slug: "dj-david-events-site",
     title: "DJ David Event Site",
     description: "Full redesign of a prominent DJ's marketing and portfolio site.",
