@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -9,17 +10,6 @@ export function About() {
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  const technologies = [
-    { name: "React", logo: "/technology-icons/react-icon.svg?height=60&width=60" },
-    { name: "TypeScript", logo: "/technology-icons/typescript-icon.svg?height=60&width=60" },
-    { name: "Node.js", logo: "/technology-icons/nodejs-icon.svg?height=60&width=60" },
-    { name: "Expo", logo: "/technology-icons/expo-icon.svg?height=60&width=60" },
-    { name: "Tailwind CSS", logo: "/technology-icons/tailwind-icon.svg?height=60&width=60" },
-    { name: "JavaScript", logo: "/technology-icons/javascript-icon.svg?height=60&width=60" },
-    { name: "Shopify", logo: "/technology-icons/shopify-icon.svg?height=60&width=60" },
-    { name: "Webflow", logo: "/technology-icons/webflow-icon.svg?height=60&width=60" },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -50,19 +40,6 @@ export function About() {
     },
   } as const;
 
-  const techVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut" as const,
-        delay: 0.4 + i * 0.05,
-      },
-    }),
-  } as const;
-
   return (
     <section id="about" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
       <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-background to-transparent"></div>
@@ -90,39 +67,19 @@ export function About() {
                   bring both the technical depth and the product intuition to make the right
                   tradeoffs.
                 </p>
-                <p className="text-body-large mb-4">
-                  Whether it's a custom web application, a mobile app, an e-commerce store, or a
-                  marketing site, I pick the right tool for the job and build it well. The
-                  technology serves the goal, not the other way around.
-                </p>
               </div>
             </motion.div>
 
-            <motion.div className="mt-10" variants={textVariants}>
-              <h3 className="mb-5 text-lg font-semibold">Technologies I Work With</h3>
-              <div className="flex flex-wrap gap-6">
-                {technologies.map((tech, index) => (
-                  <motion.div
-                    key={tech.name}
-                    custom={index}
-                    variants={techVariants}
-                    className="group flex flex-col items-center gap-2"
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center opacity-70 transition-opacity duration-300 group-hover:opacity-100">
-                      <Image
-                        src={tech.logo || "/placeholder.svg"}
-                        alt={tech.name}
-                        width={36}
-                        height={36}
-                        className="max-h-full max-w-full object-contain"
-                      />
-                    </div>
-                    <span className="text-xs text-muted-foreground/60 transition-colors duration-300 group-hover:text-muted-foreground">
-                      {tech.name}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
+            <motion.div className="mt-8" variants={textVariants}>
+              <a
+                href="/KraczResume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="animated-underline inline-flex items-center gap-1.5 text-sm font-medium"
+              >
+                <span className="relative z-10">Read my full resume</span>
+                <ExternalLink size={14} className="relative z-10" />
+              </a>
             </motion.div>
           </div>
 

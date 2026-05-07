@@ -33,6 +33,12 @@ export function Header() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  const navItems = [
+    { id: "portfolio", label: "Portfolio" },
+    { id: "how-i-work", label: "How I work" },
+    { id: "about", label: "About" },
+  ];
+
   const headerVariants = {
     hidden: { y: -100, opacity: 0 },
     visible: {
@@ -119,10 +125,10 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
-          {["services", "portfolio", "about"].map((item, i) => (
+          {navItems.map((item, i) => (
             <motion.button
-              key={item}
-              onClick={() => scrollToSection(item)}
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
               className="animated-underline text-body-small font-medium"
               custom={i}
               variants={navItemVariants}
@@ -131,7 +137,7 @@ export function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="relative z-10 capitalize">{item}</span>
+              <span className="relative z-10">{item.label}</span>
             </motion.button>
           ))}
           <motion.div custom={5} variants={navItemVariants} initial="hidden" animate="visible">
@@ -191,14 +197,14 @@ export function Header() {
             exit="exit"
           >
             <div className="container flex flex-col gap-4 py-4">
-              {["services", "portfolio", "about"].map((item, i) => (
+              {navItems.map((item) => (
                 <motion.button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className="text-body py-2 font-medium capitalize transition-colors hover:text-primary"
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-body py-2 font-medium transition-colors hover:text-primary"
                   variants={mobileNavItemVariants}
                 >
-                  {item}
+                  {item.label}
                 </motion.button>
               ))}
               <motion.div variants={mobileNavItemVariants}>

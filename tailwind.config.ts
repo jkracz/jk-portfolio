@@ -17,7 +17,7 @@ const config: Config = {
     fontFamily: {
       sans: ["var(--font-body)", "monospace"],
       mono: ["var(--font-body)", "monospace"],
-      heading: ["var(--font-heading)", "sans-serif"],
+      heading: ["Switzer", "system-ui", "sans-serif"],
       body: ["var(--font-body)", "monospace"],
     },
     extend: {
@@ -57,9 +57,12 @@ const config: Config = {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        // Architectural scale. See DESIGN.md.
+        sm: "1px",
+        md: "2px",
+        lg: "4px",
+        xl: "6px",
+        "2xl": "8px",
       },
       keyframes: {
         "accordion-down": {

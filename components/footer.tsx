@@ -63,21 +63,38 @@ export function Footer() {
             <p className="mt-1 text-sm text-muted-foreground">Custom software built for results</p>
           </motion.div>
 
-          <motion.nav className="mb-4 flex gap-8 md:mb-0" variants={itemVariants}>
-            {["services", "portfolio", "contact"].map(item => (
-              <motion.div key={item} whileHover="hover" variants={linkVariants}>
+          <motion.nav
+            className="mb-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 md:mb-0"
+            variants={itemVariants}
+          >
+            {[
+              { id: "portfolio", label: "Portfolio" },
+              { id: "how-i-work", label: "How I work" },
+              { id: "contact", label: "Contact" },
+            ].map(item => (
+              <motion.div key={item.id} whileHover="hover" variants={linkVariants}>
                 <Link
-                  href={`#${item}`}
+                  href={`#${item.id}`}
                   onClick={e => {
                     e.preventDefault();
-                    document.getElementById(item)?.scrollIntoView({ behavior: "smooth" });
+                    document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="text-sm capitalize transition-colors hover:text-primary"
+                  className="text-sm transition-colors hover:text-primary"
                 >
-                  {item}
+                  {item.label}
                 </Link>
               </motion.div>
             ))}
+            <motion.div whileHover="hover" variants={linkVariants}>
+              <a
+                href="/KraczResume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm transition-colors hover:text-primary"
+              >
+                Resume
+              </a>
+            </motion.div>
           </motion.nav>
 
           <motion.div className="flex space-x-4" variants={itemVariants}>

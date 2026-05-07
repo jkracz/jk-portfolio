@@ -130,7 +130,7 @@ export function Contact() {
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div className="mx-auto mb-12 max-w-3xl text-center" variants={headerVariants}>
-          <h2 className="mb-4 text-3xl font-bold md:text-5xl">
+          <h2 className="h2 mb-4">
             Let's Build Something Great Together
           </h2>
           <p className="text-xl text-muted-foreground">

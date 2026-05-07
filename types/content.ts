@@ -15,14 +15,10 @@ export type PortfolioProject = {
   };
 };
 
-export type ServiceIcon = "shopping-bag" | "layers" | "code" | "smartphone" | "globe" | "terminal";
-
-export type ServiceItem = {
+export type EngagementMode = {
   slug: string;
-  title: string;
-  description: string;
-  icon: ServiceIcon;
-  color: string;
-  features?: string[];
-  featured?: boolean;
+  number: string;
+  label: string;
+  lead: string;
+  body: string;
 };

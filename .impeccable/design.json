@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-07T00:00:00.000Z",
+  "title": "Design System: joekracz.com",
+  "extensions": {
+    "colorMeta": {
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "canonical": "oklch(48% 0.17 257)",
+        "tonalRamp": [
+          "#0e1238",
+          "#161e5d",
+          "#1f2a82",
+          "#2c3ea8",
+          "#4757c7",
+          "#6c7ad6",
+          "#9ba4e3",
+          "#c8cdef"
+        ]
+      },
+      "cobalt-dark": {
+        "role": "primary",
+        "displayName": "Cobalt (Dark Theme)",
+        "canonical": "oklch(58% 0.18 255)",
+        "tonalRamp": [
+          "#161e5d",
+          "#1f2a82",
+          "#2c3ea8",
+          "#4757c7",
+          "#6c7ad6",
+          "#9ba4e3",
+          "#c8cdef",
+          "#e2e5f7"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(15% 0.02 255)",
+        "tonalRamp": [
+          "#0a0e1c",
+          "#11162b",
+          "#1d2030",
+          "#25293a",
+          "#363a4d",
+          "#5a5e72",
+          "#9ca0ad",
+          "#dfe3ec"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(99% 0.004 250)",
+        "tonalRamp": [
+          "#0a0e1c",
+          "#1d2030",
+          "#25293a",
+          "#5a5e72",
+          "#9ca0ad",
+          "#dfe3ec",
+          "#f1f3f8",
+          "#fbfcfe"
+        ]
+      },
+      "mist": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "oklch(96% 0.008 255)",
+        "tonalRamp": [
+          "#0a0e1c",
+          "#1d2030",
+          "#25293a",
+          "#363a4d",
+          "#5a5e72",
+          "#9ca0ad",
+          "#dfe3ec",
+          "#f1f3f8"
+        ]
+      },
+      "mist-dark": {
+        "role": "neutral",
+        "displayName": "Mist (Dark Theme)",
+        "canonical": "oklch(22% 0.015 255)",
+        "tonalRamp": [
+          "#0a0e1c",
+          "#11162b",
+          "#1d2030",
+          "#25293a",
+          "#363a4d",
+          "#5a5e72",
+          "#9ca0ad",
+          "#dfe3ec"
+        ]
+      },
+      "text-soft": {
+        "role": "neutral",
+        "displayName": "Text Soft",
+        "canonical": "oklch(50% 0.015 255)",
+        "tonalRamp": [
+          "#11162b",
+          "#1d2030",
+          "#25293a",
+          "#363a4d",
+          "#5a5e72",
+          "#6c7280",
+          "#9ca0ad",
+          "#dfe3ec"
+        ]
+      },
+      "text-soft-dark": {
+        "role": "neutral",
+        "displayName": "Text Soft (Dark Theme)",
+        "canonical": "oklch(70% 0.015 255)",
+        "tonalRamp": [
+          "#1d2030",
+          "#25293a",
+          "#363a4d",
+          "#5a5e72",
+          "#6c7280",
+          "#9ca0ad",
+          "#c4c8d2",
+          "#dfe3ec"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(91% 0.012 255)",
+        "tonalRamp": [
+          "#25293a",
+          "#363a4d",
+          "#5a5e72",
+          "#9ca0ad",
+          "#c4c8d2",
+          "#dfe3ec",
+          "#eef0f6",
+          "#fbfcfe"
+        ]
+      },
+      "hairline-dark": {
+        "role": "neutral",
+        "displayName": "Hairline (Dark Theme)",
+        "canonical": "oklch(25% 0.015 255)",
+        "tonalRamp": [
+          "#0a0e1c",
+          "#11162b",
+          "#1d2030",
+          "#25293a",
+          "#363a4d",
+          "#5a5e72",
+          "#9ca0ad",
+          "#dfe3ec"
+        ]
+      },
+      "alarm": {
+        "role": "tertiary",
+        "displayName": "Alarm",
+        "canonical": "oklch(58% 0.20 25)",
+        "tonalRamp": [
+          "#3d0d0a",
+          "#651613",
+          "#962720",
+          "#b8332a",
+          "#d9433a",
+          "#e6695f",
+          "#ee8f87",
+          "#f6c1bd"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero claim only. Large, tight tracking, set on one or two lines, never centered."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headers (h2). Always paired with a one-sentence mono lead beneath."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles and h3-level subsection headers."
+      },
+      "body": {
+        "displayName": "Body (Mono)",
+        "purpose": "Default running copy. Geist Mono is the system's signature voice. Cap line length at 65–75ch."
+      },
+      "body-large": {
+        "displayName": "Body Large (Mono)",
+        "purpose": "About-section paragraphs and read-me-carefully passages."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "One-line subhead beneath section headlines and the hero claim. Sized below display so it reads as caption, not co-headline."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Tech labels, metadata, footer text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "header-scrolled",
+        "value": "0 1px 0 rgba(10, 14, 28, 0.06)",
+        "purpose": "The only sanctioned shadow. Appears under the header when the page is scrolled. Pairs with backdrop-blur."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "Default ease-out for state transitions and entrance animations."
+      },
+      {
+        "name": "duration-color",
+        "value": "200ms",
+        "purpose": "Color and background transitions on buttons, links, theme toggles, hover state changes."
+      },
+      {
+        "name": "duration-underline",
+        "value": "300ms",
+        "purpose": "Animated link underline reveals (left-to-right slide on hover)."
+      },
+      {
+        "name": "duration-entrance",
+        "value": "400ms",
+        "purpose": "Section and component entrance fades and short translates triggered by viewport scroll-in."
+      },
+      {
+        "name": "stagger-children",
+        "value": "100ms",
+        "purpose": "Per-item delay for staggered entrance animations. Cap at 5 items; larger lists use whileInView per-item without stagger."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1400px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default CTA. Cobalt fill, Paper text. Hover transitions to Ink fill (not faded Cobalt) so the dark hover reads more confident than the resting state.",
+      "html": "<button class=\"ds-btn-primary\">Get in touch</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; background: #2c3ea8; color: #fbfcfe; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; line-height: 1; border: none; border-radius: 2px; cursor: pointer; transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1); } .ds-btn-primary:hover { background: #0a0e1c; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px #fbfcfe, 0 0 0 4px rgba(44, 62, 168, 0.6); }"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Secondary CTA when a button is genuinely needed. Paper background, Ink text, hairline border. Hover fills with Mist.",
+      "html": "<button class=\"ds-btn-quiet\">View resume</button>",
+      "css": ".ds-btn-quiet { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; background: #fbfcfe; color: #0a0e1c; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; line-height: 1; border: 1px solid #dfe3ec; border-radius: 2px; cursor: pointer; transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1); } .ds-btn-quiet:hover { background: #f1f3f8; } .ds-btn-quiet:focus-visible { outline: none; box-shadow: 0 0 0 2px #fbfcfe, 0 0 0 4px rgba(44, 62, 168, 0.6); }"
+    },
+    {
+      "name": "Animated Underline Link",
+      "kind": "nav",
+      "refersTo": "link-text",
+      "description": "The system's signature small detail. Used as the secondary action beside a primary button (instead of a second button) and for header / footer / inline body links.",
+      "html": "<button class=\"ds-link\">View my work</button>",
+      "css": ".ds-link { position: relative; padding: 4px 0; background: transparent; color: #0a0e1c; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; line-height: 1.5; border: none; cursor: pointer; } .ds-link::after { content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: #2c3ea8; transition: width 300ms cubic-bezier(0, 0, 0.2, 1); } .ds-link:hover { color: #2c3ea8; } .ds-link:hover::after { width: 100%; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat surface for content blocks (services, portfolio items). No shadow at rest; depth comes from tonal layering. Hover nudges background to Mist and tightens border to Cobalt.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card__title\">Custom Web Applications</div><div class=\"ds-card__body\">Full-stack apps built to scale. React, Next.js, Astro, Node.js.</div></div>",
+      "css": ".ds-card { background: #fbfcfe; color: #0a0e1c; border: 1px solid #dfe3ec; border-radius: 4px; padding: 24px; transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1), border-color 200ms cubic-bezier(0, 0, 0.2, 1); } .ds-card:hover { background: #f1f3f8; border-color: rgba(44, 62, 168, 0.25); } .ds-card__title { font-family: 'Switzer', system-ui, sans-serif; font-size: 1.5rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 8px; color: #0a0e1c; } .ds-card__body { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 1rem; line-height: 1.65; color: #6c7280; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input. Hairline border, mono body text, Cobalt focus ring. Even form fields use Geist Mono — the mono is the consistency.",
+      "html": "<input class=\"ds-input\" type=\"email\" name=\"email\" autocomplete=\"email\" placeholder=\"your@email.com\" />",
+      "css": ".ds-input { display: block; width: 100%; height: 40px; padding: 8px 12px; background: #fbfcfe; color: #0a0e1c; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 1rem; line-height: 1.5; border: 1px solid #dfe3ec; border-radius: 2px; transition: border-color 200ms cubic-bezier(0, 0, 0.2, 1); } .ds-input::placeholder { color: #6c7280; } .ds-input:focus-visible { outline: none; border-color: #2c3ea8; box-shadow: 0 0 0 2px #fbfcfe, 0 0 0 4px rgba(44, 62, 168, 0.4); }"
+    },
+    {
+      "name": "Section Band",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Layout primitive. The page alternates Paper and Mist bands instead of using card grids on a uniform background. Headlines paired with a single-line mono lead.",
+      "html": "<section class=\"ds-band ds-band--mist\"><div class=\"ds-band__inner\"><h2 class=\"ds-band__headline\">What I build</h2><p class=\"ds-band__lead\">Custom web apps, mobile apps, and the marketing sites that sell them.</p></div></section>",
+      "css": ".ds-band { position: relative; padding: 64px 32px; overflow: hidden; } @media (min-width: 768px) { .ds-band { padding: 96px 32px; } } .ds-band--paper { background: #fbfcfe; color: #0a0e1c; } .ds-band--mist { background: #f1f3f8; color: #0a0e1c; } .ds-band__inner { max-width: 1400px; margin: 0 auto; } .ds-band__headline { font-family: 'Switzer', system-ui, sans-serif; font-size: clamp(1.875rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 16px; } .ds-band__lead { font-family: 'Geist Mono', ui-monospace, monospace; font-size: clamp(1.125rem, 1.6vw, 1.25rem); line-height: 1.55; color: #6c7280; max-width: 70ch; margin: 0; }"
+    },
+    {
+      "name": "Hero (canonical)",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Asymmetric two-column hero. Type column wider than illustration column (60/40). Display claim, single mono lead, one specific proof line, one primary CTA + one underlined text link. Single-shape atmospheric mark.",
+      "html": "<section class=\"ds-hero\"><div class=\"ds-hero__type\"><h1 class=\"ds-hero__display\">I help founders and engineering teams ship serious software.</h1><p class=\"ds-hero__lead\">Fractional, full-time, or project. San Francisco.</p><p class=\"ds-hero__proof\">Most recent: shipped Zinegeist (writer-first publishing, SvelteKit/Convex). Re-launched Pull Systems → 20+ enterprise leads in month one.</p><div class=\"ds-hero__actions\"><button class=\"ds-btn-primary\">Get in touch</button><button class=\"ds-link\">View my work</button></div></div><div class=\"ds-hero__art\"><div class=\"ds-hero__atmosphere\"></div><div class=\"ds-hero__lottie\">[Lottie illustration]</div></div></section>",
+      "css": ".ds-hero { display: grid; grid-template-columns: 1fr; gap: 48px; padding: 96px 32px; max-width: 1400px; margin: 0 auto; align-items: center; } @media (min-width: 768px) { .ds-hero { grid-template-columns: 60% 40%; gap: 64px; padding: 128px 32px; } } .ds-hero__display { font-family: 'Switzer', system-ui, sans-serif; font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 700; line-height: 1; letter-spacing: -0.025em; color: #0a0e1c; margin: 0 0 24px; max-width: 18ch; } .ds-hero__lead { font-family: 'Geist Mono', ui-monospace, monospace; font-size: clamp(1.125rem, 1.6vw, 1.25rem); line-height: 1.55; color: #0a0e1c; margin: 0 0 16px; } .ds-hero__proof { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 0.9375rem; line-height: 1.6; color: #6c7280; margin: 0 0 32px; max-width: 60ch; } .ds-hero__actions { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; } .ds-hero__art { position: relative; aspect-ratio: 1; } .ds-hero__atmosphere { position: absolute; bottom: -40px; right: -40px; width: 24rem; height: 24rem; border-radius: 50%; background: rgba(44, 62, 168, 0.10); filter: blur(64px); pointer-events: none; } .ds-hero__lottie { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Senior Engineer's Notebook",
+    "overview": "A quiet, confident surface for evaluating Joe. The structure is calm and scannable, the type does most of the work, and the personality lives in the details: monospaced body copy, an animated underline on every link, a single cobalt accent that you notice precisely because it is rare. The system rejects the pieces that betray a templated origin — no gradient hero bloom doing the heavy lifting, no Skittles-pack of feature-card colors, no SaaS-cream pastels, no decorative glassmorphism, no cycling marketing typewriter. Where personality is wanted, the page leans on typographic confidence and asymmetric composition. Where atmosphere is wanted, it reaches for a single deliberate shape, not a smeared gradient.\n\nThe destination palette is Cobalt Ink on faintly-tinted Paper: a deeper, more saturated blue than the shadcn default, paired with a near-black tinted toward the accent and a Paper that carries a hair of cool to kill the pure-white tell. Both light and dark themes share the doctrine: restrained, type-forward, one voice.\n\nThis system explicitly rejects: SaaS-cream gradient hero pages, neo-brutalist marquee agency style, \"creative developer\" 3D-blob WebGL playgrounds, the dark-with-neon-green hacker terminal, and the generic \"Hi, I'm X\" Tailwind-starter dev portfolio. It also rejects template silhouettes — symmetric two-column heroes, four identical feature cards in a row, a \"Let's Build Something Great Together\" centered contact section.",
+    "keyCharacteristics": [
+      "Mono body, sans display — the contrast is the personality",
+      "One accent color, used on ≤10% of any screen (Cobalt Ink, never green/amber/purple/teal alongside it)",
+      "Typography-forward composition — type carries hierarchy before color or shape do",
+      "Asymmetric layouts where templates would default to symmetric",
+      "Motion is feedback and entrance, never choreography or ornament",
+      "Section bands (alternating Paper and Mist) are the layout primitive, not card grids on uniform backgrounds"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "The site has exactly one accent: Cobalt. No green, amber, purple, teal, or violet siblings on primary surfaces. The four service cards use Cobalt or no color, never four different hues. If a layout needs to differentiate items, use position, scale, weight, or icon — never color.",
+        "section": "colors"
+      },
+      {
+        "name": "The 10% Rule",
+        "body": "Cobalt covers no more than ~10% of any rendered screen. If a layout needs more emphasis, use weight, scale, or whitespace, not more Cobalt. The accent's power is its scarcity.",
+        "section": "colors"
+      },
+      {
+        "name": "The No-Pure-Black-Or-White Rule",
+        "body": "Never #000 or #ffffff. Use Ink (#0a0e1c) and Paper (#fbfcfe). Pure black on pure white reads as templated; the faintly-tinted versions read as considered.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono-Body Rule",
+        "body": "Body copy is always Geist Mono. Switching body to Switzer flattens the personality and turns the site into a generic shadcn template. The mono IS the differentiator.",
+        "section": "typography"
+      },
+      {
+        "name": "The Negative-Tracking Rule",
+        "body": "Display always carries -0.025em tracking; Headline always -0.015em. It tightens Switzer into something more editorial. The default tracking reads as a default.",
+        "section": "typography"
+      },
+      {
+        "name": "The One-Line Subhead Rule",
+        "body": "Every section headline gets exactly one line of mono lead beneath it. No multi-paragraph intros, no double-stacked subheads. If you can't say it in one line, the headline is wrong.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Lift Rule",
+        "body": "Cards, services, portfolio items, and form fields have zero shadow at rest. Hover reveals through color (background nudge to Mist, border to Cobalt), never through elevation. The single permitted shadow is the header's 0 1px 0 rgba(10, 14, 28, 0.06) once scrolled.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Single-Shape Rule",
+        "body": "Decorative atmosphere is a deliberate shape — one per section, max. A soft 24rem-wide low-opacity Cobalt circle behind a corner, a hairline rule beneath a headline, a thin vertical Cobalt mark before a paragraph. Never two atmospheric blurs in the same section. Never a full-section radial gradient bloom.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep Geist Mono as the body face. The mono is the most distinctive choice in the system.",
+      "Do alternate Paper and Mist section bands for rhythm. Vertical padding py-16 md:py-24 is the standard.",
+      "Do use Cobalt on ≤10% of a screen. Buttons, link underlines, focus rings, the rare deliberate accent shape. Stop there.",
+      "Do prefer a text link to a second button when secondary actions are needed.",
+      "Do honor prefers-reduced-motion for the typewriter, hero entrance, and Framer animations.",
+      "Do use Ink (#0a0e1c) and Paper (#fbfcfe) — never #000 or #ffffff.",
+      "Do set autoComplete attributes on every form field.",
+      "Do call history.pushState on smooth-scroll nav clicks so URLs reflect position.",
+      "Do ship asymmetric layouts in heroes and feature sections; symmetric two-columns are the template tell.",
+      "Do write copy in short declarative sentences, first person, specific over generic."
+    ],
+    "donts": [
+      "Don't use the legacy gradient-text utility (from-primary to-purple-500 bg-clip-text). Decorative gradient text is forbidden — single solid color, weight for emphasis. Delete this utility from globals.css if it is still defined.",
+      "Don't use multiple accent colors on primary surfaces. The four service cards use Cobalt or no color, never green + amber + purple + violet. The pastel from-green-500/20 to-amber-500/20 halos in content/services.ts are forbidden — collapse to one Cobalt halo with positional variation.",
+      "Don't use #000 or #ffffff literals anywhere. The current bg-black on dialog/alert-dialog overlays needs to migrate to Ink at low alpha.",
+      "Don't add box-shadow-based card lifts. No-Lift Rule. If something needs to feel raised, increase contrast, not elevation.",
+      "Don't wrap sections in cards-within-cards. No nested cards, ever.",
+      "Don't add border-left or border-right accents greater than 1px as colored stripes.",
+      "Don't add 3D blob shaders, audio-reactive WebGL, scroll-jacked physics, or oversized scrolling marquee text.",
+      "Don't ship the dark-with-neon-green hacker-terminal aesthetic.",
+      "Don't add a glassmorphic blur as decoration. The header's backdrop-blur-xs on scroll is the one sanctioned use.",
+      "Don't use em dashes in body copy. Commas, colons, periods, parentheses only.",
+      "Don't add a third typeface. Sans + Mono is the system.",
+      "Don't add a 'Hi, I'm Joe 👋' hero, a tech-icon wall, or a 'Let's Build Something Great Together' centered contact headline. Each is on PRODUCT.md's anti-reference list.",
+      "Don't ship a custom mix-blend-mode: difference cursor. Cursor mods read 'creative developer,' not 'senior engineer.'",
+      "Don't ship the white-translucent left-to-right button wipe on hover. Color or background nudge only.",
+      "Don't cycle category words on the hero ('Web Apps / Mobile Apps / Digital Products'). Categories are not positioning.",
+      "Don't use two equally-weighted buttons on the hero. One button + one text link.",
+      "Don't stack two atmospheric blurs in the same section. Single-Shape Rule."
+    ]
+  }
+}

@@ -4,10 +4,12 @@ import { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import type { PortfolioProject } from "@/types/content";
+
+const VISIBLE_COUNT = 4;
 
 type PortfolioProps = {
   projects: PortfolioProject[];
@@ -15,218 +17,281 @@ type PortfolioProps = {
 
 export function Portfolio({ projects }: PortfolioProps) {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [showAll, setShowAll] = useState(false);
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
+  const initialProjects = projects.slice(0, VISIBLE_COUNT);
+  const hiddenProjects = projects.slice(VISIBLE_COUNT);
+  const hasHidden = hiddenProjects.length > 0;
 
-  const headerVariants = {
+  const headerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const },
+      transition: { duration: 0.5, ease: [0, 0, 0.2, 1] },
     },
-  } as const;
+  };
 
-  const projectVariants = {
-    hidden: { opacity: 0, y: 50 },
+  const rowVariants: Variants = {
+    hidden: { opacity: 0, y: 24 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1] as const,
-        delay: 0.15 + i * 0.12,
-      },
+      transition: { duration: 0.5, ease: [0, 0, 0.2, 1], delay: 0.1 + i * 0.08 },
     }),
-  } as const;
-
-  const dialogVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" as const },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.9,
-      transition: { duration: 0.3, ease: "easeIn" as const },
-    },
-  } as const;
+  };
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
-      <motion.div
-        className="container relative z-10"
-        ref={ref}
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-      >
-        <motion.div className="mx-auto mb-14 max-w-2xl text-center" variants={headerVariants}>
-          <h2 className="h2 mb-4">Featured Projects</h2>
+    <section id="portfolio" className="relative overflow-hidden bg-muted/40 py-16 md:py-24">
+      {/* Top fade: bleed Hero's Paper background into Portfolio's Mist band so the transition reads as a soft gradient, not a hard line. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent"
+      />
+      <div ref={ref} className="container">
+        <motion.div
+          className="mb-12 max-w-2xl md:mb-16"
+          variants={headerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+        >
+          <h2 className="h2 mb-4">Selected work</h2>
           <p className="text-lead text-muted-foreground">
-            Recent work delivering real results for clients.
+            Recent shipments, with the numbers attached.
           </p>
         </motion.div>
 
-        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <motion.div
+        <div className="mx-auto max-w-5xl">
+          {initialProjects.map((project, index) => (
+            <CaseStudyRow
               key={project.slug}
-              custom={index}
-              variants={projectVariants}
-              whileHover={{ y: -8 }}
-              transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
-              className="group cursor-pointer"
-              onClick={() => setSelectedProject(project)}
-            >
-              <div className="relative h-full overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm transition-shadow duration-500 group-hover:shadow-xl">
-                {/* Image area */}
-                <div className="relative h-56 w-full overflow-hidden sm:h-64">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              project={project}
+              index={index}
+              animate={inView}
+              variants={rowVariants}
+              isFirst={index === 0}
+              onOpen={() => setSelectedProject(project)}
+            />
+          ))}
+
+          <AnimatePresence initial={false}>
+            {showAll && (
+              <motion.div
+                key="hidden-projects"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{
+                  opacity: 1,
+                  height: "auto",
+                  transition: { duration: 0.45, ease: [0, 0, 0.2, 1] },
+                }}
+                exit={{
+                  opacity: 0,
+                  height: 0,
+                  transition: { duration: 0.3, ease: [0.4, 0, 1, 1] },
+                }}
+                className="overflow-hidden"
+              >
+                {hiddenProjects.map((project, index) => (
+                  <CaseStudyRow
+                    key={project.slug}
+                    project={project}
+                    index={0}
+                    animate={true}
+                    variants={rowVariants}
+                    isFirst={false}
+                    onOpen={() => setSelectedProject(project)}
                   />
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+          {hasHidden && (
+            <div className="mt-10 flex justify-center md:mt-14">
+              <button
+                onClick={() => setShowAll(s => !s)}
+                aria-expanded={showAll}
+                className="animated-underline text-sm font-medium tracking-wide"
+              >
+                <span className="relative z-10">
+                  {showAll ? "Show fewer" : `Show ${hiddenProjects.length} more`}
+                </span>
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
 
-                  {/* Result metric badge */}
-                  {project.resultMetric && (
-                    <div className="absolute bottom-3 left-3 rounded-lg bg-white/15 px-3 py-1.5 backdrop-blur-md">
-                      <span className="block font-heading text-lg font-bold leading-tight text-white">
-                        {project.resultMetric}
-                      </span>
-                      <span className="block text-[11px] leading-tight text-white/70">
-                        {project.resultLabel}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Hover arrow */}
-                  <div className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/15 opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
-                    <ArrowUpRight className="h-4 w-4 text-white" />
-                  </div>
-                </div>
-
-                {/* Info area */}
-                <div className="p-5">
-                  <h3 className="mb-1 text-base font-semibold tracking-tight">{project.title}</h3>
-                  <p className="mb-3 text-sm text-muted-foreground">{project.description}</p>
-                  <p className="text-xs tracking-wide text-muted-foreground/50">
-                    {project.technologies.join(" · ")}
-                  </p>
+      {selectedProject && (
+        <Dialog open={!!selectedProject} onOpenChange={open => !open && setSelectedProject(null)}>
+          <DialogContent className="max-w-3xl overflow-hidden p-0">
+            <div className="relative h-[240px] w-full">
+              <Image
+                src={selectedProject.image || "/placeholder.svg"}
+                alt={selectedProject.title}
+                fill
+                sizes="(min-width: 1024px) 48rem, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--overlay)_/_0.8)] via-[rgb(var(--overlay)_/_0.3)] to-transparent">
+                <div className="absolute bottom-5 left-6 right-6">
+                  <DialogTitle className="font-heading text-2xl font-bold tracking-tight text-white md:text-3xl">
+                    {selectedProject.title}
+                  </DialogTitle>
+                  <DialogDescription className="mt-1 text-xs tracking-wide text-white/70">
+                    {selectedProject.technologies.join(" · ")}
+                  </DialogDescription>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+            </div>
 
-      <AnimatePresence>
-        {selectedProject && (
-          <Dialog open={!!selectedProject} onOpenChange={open => !open && setSelectedProject(null)}>
-            <DialogContent className="max-w-4xl overflow-hidden p-0">
-              <motion.div variants={dialogVariants} initial="hidden" animate="visible" exit="exit">
-                <div className="relative h-[250px] w-full">
-                  <Image
-                    src={selectedProject.image || "/placeholder.svg"}
-                    alt={selectedProject.title}
-                    fill
-                    sizes="(min-width: 1024px) 64rem, 100vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
-                    <div className="absolute bottom-4 left-6 right-6">
-                      <DialogTitle className="h3 text-white">{selectedProject.title}</DialogTitle>
-                      <DialogDescription className="text-body text-white/80">
-                        {selectedProject.technologies.join(" · ")}
-                      </DialogDescription>
-                    </div>
-                  </div>
-                </div>
+            <div className="space-y-6 p-6 md:p-8">
+              <p className="text-body-large">{selectedProject.fullDescription}</p>
 
-                <div className="space-y-6 p-6">
-                  <div>
-                    <h4 className="h5 mb-2">Project Overview</h4>
-                    <p className="text-body">{selectedProject.fullDescription}</p>
-                  </div>
-
-                  {selectedProject.transformation && (
-                    <div>
-                      <h4 className="h5 mb-2">Transformation</h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-caption mb-1 text-muted-foreground">Before</p>
-                          <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
-                            <Image
-                              src={selectedProject.transformation.before}
-                              alt="Before"
-                              fill
-                              sizes="(min-width: 1024px) 32rem, 100vw"
-                              className="object-cover"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <p className="text-caption mb-1 text-muted-foreground">After</p>
-                          <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
-                            <Image
-                              src={selectedProject.transformation.after}
-                              alt="After"
-                              fill
-                              sizes="(min-width: 1024px) 32rem, 100vw"
-                              className="object-cover"
-                            />
-                          </div>
-                        </div>
+              {selectedProject.transformation && (
+                <div>
+                  <h4 className="mb-3 text-sm font-semibold tracking-wide text-muted-foreground">
+                    Before / After
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    <figure>
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md border border-border">
+                        <Image
+                          src={selectedProject.transformation.before}
+                          alt="Before"
+                          fill
+                          sizes="(min-width: 1024px) 24rem, 50vw"
+                          className="object-cover"
+                        />
                       </div>
-                    </div>
-                  )}
-
-                  <div>
-                    <h4 className="h5 mb-2">Results</h4>
-                    <p className="text-body">{selectedProject.results}</p>
+                      <figcaption className="mt-2 text-xs text-muted-foreground">Before</figcaption>
+                    </figure>
+                    <figure>
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md border border-border">
+                        <Image
+                          src={selectedProject.transformation.after}
+                          alt="After"
+                          fill
+                          sizes="(min-width: 1024px) 24rem, 50vw"
+                          className="object-cover"
+                        />
+                      </div>
+                      <figcaption className="mt-2 text-xs text-muted-foreground">After</figcaption>
+                    </figure>
                   </div>
-
-                  {selectedProject.link && (
-                    <div className="pt-2 text-right">
-                      <Button asChild variant="outline" size="sm">
-                        <a
-                          href={selectedProject.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1"
-                        >
-                          <span>Visit Project</span>
-                          <ExternalLink size={14} />
-                        </a>
-                      </Button>
-                    </div>
-                  )}
                 </div>
-              </motion.div>
-            </DialogContent>
-          </Dialog>
-        )}
-      </AnimatePresence>
+              )}
+
+              <div>
+                <h4 className="mb-1 text-sm font-semibold tracking-wide text-muted-foreground">
+                  Outcome
+                </h4>
+                <p className="text-body">{selectedProject.results}</p>
+              </div>
+
+              {selectedProject.link && (
+                <div className="pt-2">
+                  <Button asChild variant="outline" size="sm">
+                    <a
+                      href={selectedProject.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5"
+                    >
+                      Visit project
+                      <ExternalLink size={14} />
+                    </a>
+                  </Button>
+                </div>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </section>
+  );
+}
+
+type CaseStudyRowProps = {
+  project: PortfolioProject;
+  index: number;
+  animate: boolean;
+  variants: Variants;
+  isFirst: boolean;
+  onOpen: () => void;
+};
+
+function CaseStudyRow({ project, index, animate, variants, isFirst, onOpen }: CaseStudyRowProps) {
+  return (
+    <motion.article
+      custom={index}
+      variants={variants}
+      initial="hidden"
+      animate={animate ? "visible" : "hidden"}
+      className={`grid gap-8 py-12 md:grid-cols-[3fr_2fr] md:gap-14 md:py-16 ${
+        isFirst ? "" : "border-t border-border"
+      }`}
+    >
+      <div className="flex flex-col justify-center">
+        <h3 className="font-heading text-xl font-semibold tracking-tight md:text-2xl">
+          {project.title}
+        </h3>
+
+        {project.resultMetric && (
+          <div className="mt-3">
+            <p className="font-heading text-4xl font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
+              {project.resultMetric}
+            </p>
+            {project.resultLabel && (
+              <p className="mt-2 text-sm text-muted-foreground">{project.resultLabel}</p>
+            )}
+          </div>
+        )}
+
+        <p className="mt-6 max-w-prose text-base text-muted-foreground">{project.description}</p>
+
+        <p className="mt-4 text-xs tracking-wide text-muted-foreground/70">
+          {project.technologies.join(" · ")}
+        </p>
+
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="animated-underline inline-flex items-center gap-1.5 text-sm font-medium"
+            >
+              <span className="relative z-10">Visit project</span>
+              <ExternalLink size={14} className="relative z-10" />
+            </a>
+          )}
+          {(project.fullDescription || project.transformation) && (
+            <button
+              onClick={onOpen}
+              className="animated-underline text-sm font-medium"
+            >
+              <span className="relative z-10">Read full case study</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label={`Open ${project.title} case study`}
+        className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-card focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        <Image
+          src={project.image || "/placeholder.svg"}
+          alt={project.title}
+          fill
+          sizes="(min-width: 768px) 40vw, 100vw"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+        />
+      </button>
+    </motion.article>
   );
 }
