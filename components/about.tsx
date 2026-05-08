@@ -1,64 +1,26 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useInView } from "@/lib/hooks/use-in-view";
 
 export function About() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const },
-    },
-  } as const;
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.6, ease: "easeOut" as const, delay: 0.2 },
-    },
-  } as const;
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.1 });
 
   return (
     <section id="about" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
       <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-background to-transparent"></div>
 
-      <motion.div
-        className="container"
-        ref={ref}
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-      >
+      <div ref={ref} data-inview={inView} className="container">
         <div className="grid gap-12 md:grid-cols-2">
           {/* Left column: text + tech grid */}
           <div>
-            <motion.div variants={textVariants}>
+            <div className="reveal" style={{ "--reveal-delay": 0 } as CSSProperties}>
               <h2 className="h2 mb-6">About Me</h2>
               <div className="prose max-w-none">
                 <p className="text-lead mb-4">
-                  I'm Joe Kracz, a software engineer, engineering leader, and builder. I love
+                  I&apos;m Joe Kracz, a software engineer, engineering leader, and builder. I love
                   turning ideas into real products that people use.
                 </p>
                 <p className="text-body-large mb-4">
@@ -68,9 +30,12 @@ export function About() {
                   tradeoffs.
                 </p>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div className="mt-8" variants={textVariants}>
+            <div
+              className="reveal mt-8"
+              style={{ "--reveal-delay": 200 } as CSSProperties}
+            >
               <a
                 href="/KraczResume.pdf"
                 target="_blank"
@@ -80,11 +45,14 @@ export function About() {
                 <span className="relative z-10">Read my full resume</span>
                 <ExternalLink size={14} className="relative z-10" />
               </a>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right column: image, vertically centered */}
-          <motion.div className="flex items-center" variants={imageVariants}>
+          <div
+            className="reveal flex items-center"
+            style={{ "--reveal-delay": 200 } as CSSProperties}
+          >
             <div className="relative h-[500px] w-full overflow-hidden rounded-2xl">
               <Image
                 src="/joe-kracz.avif"
@@ -96,9 +64,9 @@ export function About() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </div>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

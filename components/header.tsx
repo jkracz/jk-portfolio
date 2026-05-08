@@ -1,12 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+
+const navItems = [
+  { id: "portfolio", label: "Portfolio" },
+  { id: "how-i-work", label: "How I work" },
+  { id: "about", label: "About" },
+];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,83 +54,25 @@ export function Header() {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
-  const navItems = [
-    { id: "portfolio", label: "Portfolio" },
-    { id: "how-i-work", label: "How I work" },
-    { id: "about", label: "About" },
-  ];
+  const themeLabel = mounted
+    ? `Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`
+    : "Toggle theme";
 
-  const headerVariants = {
-    hidden: { y: -100, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay: 0.2,
-      },
-    },
-  };
-
-  const navItemVariants = {
-    hidden: { y: -20, opacity: 0 },
-    visible: (i: number) => ({
-      y: 0,
-      opacity: 1,
-      transition: {
-        delay: 0.3 + i * 0.1,
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    }),
-  };
-
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: {
-      opacity: 1,
-      height: "auto",
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      height: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const mobileNavItemVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.3 },
-    },
-    exit: {
-      x: -20,
-      opacity: 0,
-      transition: { duration: 0.2 },
-    },
-  };
+  const themeIcon = mounted ? (
+    resolvedTheme === "dark" ? (
+      <Sun size={18} />
+    ) : (
+      <Moon size={18} />
+    )
+  ) : (
+    <span aria-hidden="true" className="block h-[18px] w-[18px]" />
+  );
 
   return (
-    <motion.header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+    <header
+      className={`enter fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         isScrolled ? "backdrop-blur-xs shadow-2xs bg-background/95" : "bg-transparent"
       }`}
-      initial="hidden"
-      animate="visible"
-      variants={headerVariants}
     >
       <div className="container flex h-16 items-center justify-between md:h-20">
         <Link href="/" className="group relative">
@@ -135,7 +82,7 @@ export function Header() {
             width={54}
             height={40}
             style={{ height: "auto" }}
-            className="block rounded-lg transition-all duration-300 group-hover:brightness-110 dark:hidden"
+            className="block rounded-lg transition-[filter] duration-200 group-hover:brightness-110 dark:hidden"
             priority
           />
           <Image
@@ -144,7 +91,7 @@ export function Header() {
             width={54}
             height={40}
             style={{ height: "auto" }}
-            className="hidden rounded-lg transition-all duration-300 group-hover:brightness-110 dark:block"
+            className="hidden rounded-lg transition-[filter] duration-200 group-hover:brightness-110 dark:block"
             priority
           />
         </Link>
@@ -152,122 +99,87 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
           {navItems.map((item, i) => (
-            <motion.button
+            <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className="animated-underline text-body-small font-medium"
-              custom={i}
-              variants={navItemVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="enter animated-underline text-body-small font-medium"
+              style={{ "--reveal-delay": 200 + i * 80 } as CSSProperties}
             >
               <span className="relative z-10">{item.label}</span>
-            </motion.button>
+            </button>
           ))}
-          <motion.div custom={5} variants={navItemVariants} initial="hidden" animate="visible">
+          <span
+            className="enter"
+            style={{ "--reveal-delay": 200 + navItems.length * 80 } as CSSProperties}
+          >
             <Button onClick={() => scrollToSection("contact")} variant="default" size="sm">
               Contact me
             </Button>
-          </motion.div>
-          <motion.button
+          </span>
+          <button
             onClick={toggleTheme}
-            className="rounded-full bg-muted/50 p-2 transition-colors hover:bg-muted"
-            custom={6}
-            variants={navItemVariants}
-            initial="hidden"
-            animate="visible"
-            whileHover={{ rotate: 15 }}
-            aria-label={
-              mounted
-                ? `Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`
-                : "Toggle theme"
+            className="enter rounded-full bg-muted/50 p-2 transition-[background-color,transform] duration-200 hover:rotate-12 hover:bg-muted"
+            style={
+              { "--reveal-delay": 200 + (navItems.length + 1) * 80 } as CSSProperties
             }
+            aria-label={themeLabel}
           >
-            {mounted ? (
-              resolvedTheme === "dark" ? (
-                <Sun size={18} />
-              ) : (
-                <Moon size={18} />
-              )
-            ) : (
-              <span aria-hidden="true" className="block h-[18px] w-[18px]" />
-            )}
-          </motion.button>
+            {themeIcon}
+          </button>
         </nav>
 
         {/* Mobile Menu Button */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={toggleTheme}
-            className="rounded-full bg-muted/50 p-2 transition-colors hover:bg-muted"
-            aria-label={
-              mounted
-                ? `Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`
-                : "Toggle theme"
-            }
+            className="rounded-full bg-muted/50 p-2 transition-colors duration-200 hover:bg-muted"
+            aria-label={themeLabel}
           >
-            {mounted ? (
-              resolvedTheme === "dark" ? (
-                <Sun size={18} />
-              ) : (
-                <Moon size={18} />
-              )
-            ) : (
-              <span aria-hidden="true" className="block h-[18px] w-[18px]" />
-            )}
+            {themeIcon}
           </button>
-          <motion.button
-            className="p-2"
+          <button
+            className="p-2 transition-transform duration-150 active:scale-90"
             onClick={() => setIsMobileMenuOpen(open => !open)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            id="mobile-menu"
-            className="backdrop-blur-xs shadow-2xs overflow-hidden bg-background/95 md:hidden"
-            variants={mobileMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <div className="container flex flex-col gap-4 py-4">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-body py-2 font-medium transition-colors hover:text-primary"
-                  variants={mobileNavItemVariants}
-                >
-                  {item.label}
-                </motion.button>
-              ))}
-              <motion.div variants={mobileNavItemVariants}>
-                <Button
-                  onClick={() => scrollToSection("contact")}
-                  variant="default"
-                  size="sm"
-                  className="w-full"
-                >
-                  Contact me
-                </Button>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+      {/* Mobile Menu — grid-rows trick for animated height auto */}
+      <div
+        id="mobile-menu"
+        className="expand backdrop-blur-xs shadow-2xs bg-background/95 md:hidden"
+        data-open={isMobileMenuOpen}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <div>
+          <div className="container flex flex-col gap-4 py-4">
+            {navItems.map(item => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-body py-2 text-left font-medium transition-colors hover:text-primary"
+                tabIndex={isMobileMenuOpen ? 0 : -1}
+              >
+                {item.label}
+              </button>
+            ))}
+            <Button
+              onClick={() => scrollToSection("contact")}
+              variant="default"
+              size="sm"
+              className="w-full"
+              tabIndex={isMobileMenuOpen ? 0 : -1}
+            >
+              Contact me
+            </Button>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }

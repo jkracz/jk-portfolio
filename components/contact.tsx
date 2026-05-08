@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import type { CSSProperties } from "react";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -8,8 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Send } from "lucide-react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useInView } from "@/lib/hooks/use-in-view";
 import { submitWeb3Form, Web3FormsError } from "@/lib/web3forms";
 
 export function Contact() {
@@ -21,10 +21,7 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.1 });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -71,74 +68,22 @@ export function Contact() {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const headerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const },
-    },
-  } as const;
-
-  const contentVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut" as const,
-        delay: 0.2,
-      },
-    },
-  } as const;
-
-  const successVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 200,
-        damping: 20,
-      },
-    },
-  } as const;
-
   return (
     <section id="contact" className="relative overflow-hidden py-16 md:py-24">
-      <motion.div
-        className="container"
-        ref={ref}
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-      >
+      <div ref={ref} data-inview={inView} className="container">
         <div className="grid items-start gap-12 md:grid-cols-[2fr_3fr] md:gap-16 lg:gap-24">
           {/* Type column: headline anchored by a thin vertical Cobalt mark.
               Single Shape Rule from DESIGN.md — the mark + negative space
               IS the composition, no filler copy needed. */}
-          <motion.div className="relative" variants={headerVariants}>
+          <div className="reveal relative" style={{ "--reveal-delay": 0 } as CSSProperties}>
             <div
               aria-hidden="true"
               className="absolute left-0 top-1.5 hidden h-14 w-0.5 bg-primary md:block lg:h-20"
             />
             <h2 className="h2 md:pl-6">Tell me what you&apos;re building.</h2>
-          </motion.div>
+          </div>
 
-          <motion.div variants={contentVariants}>
+          <div className="reveal" style={{ "--reveal-delay": 200 } as CSSProperties}>
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 <div className="space-y-2">
@@ -219,14 +164,7 @@ export function Contact() {
                 </Button>
               </form>
             ) : (
-              <motion.div
-                className="relative"
-                variants={successVariants}
-                initial="hidden"
-                animate="visible"
-                role="status"
-                aria-live="polite"
-              >
+              <div className="enter relative" role="status" aria-live="polite">
                 <div
                   aria-hidden="true"
                   className="absolute left-0 top-1.5 hidden h-14 w-0.5 bg-primary md:block"
@@ -244,11 +182,11 @@ export function Contact() {
                 >
                   <span className="relative z-10">Send another message</span>
                 </button>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

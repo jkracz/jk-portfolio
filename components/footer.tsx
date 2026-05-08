@@ -1,11 +1,37 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
-import { motion } from "framer-motion";
+import { useInView } from "@/lib/hooks/use-in-view";
+
+const navItems = [
+  { id: "portfolio", label: "Portfolio" },
+  { id: "how-i-work", label: "How I work" },
+  { id: "contact", label: "Contact" },
+];
+
+const socials = [
+  {
+    icon: <FaGithub className="h-5 w-5" />,
+    label: "GitHub",
+    href: "https://github.com/jkracz",
+  },
+  {
+    icon: <FaLinkedin className="h-5 w-5" />,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/joe-kracz-219829119/",
+  },
+  {
+    icon: <FaXTwitter className="h-5 w-5" />,
+    label: "X (Twitter)",
+    href: "https://x.com/joey_kracz",
+  },
+];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const [ref, inView] = useInView<HTMLElement>({ threshold: 0.1 });
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const element = document.getElementById(id);
@@ -17,72 +43,26 @@ export function Footer() {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
-  const navItems = [
-    { id: "portfolio", label: "Portfolio" },
-    { id: "how-i-work", label: "How I work" },
-    { id: "contact", label: "Contact" },
-  ];
-
-  const socials = [
-    {
-      icon: <FaGithub className="h-5 w-5" />,
-      label: "GitHub",
-      href: "https://github.com/jkracz",
-    },
-    {
-      icon: <FaLinkedin className="h-5 w-5" />,
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/joe-kracz-219829119/",
-    },
-    {
-      icon: <FaXTwitter className="h-5 w-5" />,
-      label: "X (Twitter)",
-      href: "https://x.com/joey_kracz",
-    },
-  ];
-
   return (
-    <motion.footer
+    <footer
+      ref={ref}
+      data-inview={inView}
       className="relative border-t bg-muted/40 py-10 md:py-14"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={containerVariants}
     >
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:gap-10">
-          <motion.div variants={itemVariants}>
+          <div className="reveal" style={{ "--reveal-delay": 0 } as CSSProperties}>
             <Link href="/" className="font-heading text-xl font-semibold tracking-tight">
               Joe Kracz
             </Link>
             <p className="mt-1 text-sm text-muted-foreground">
               Senior engineer. Open to roles, fractional, and project work.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.nav
-            className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2"
-            variants={itemVariants}
+          <nav
+            className="reveal flex flex-wrap items-center justify-center gap-x-7 gap-y-2"
+            style={{ "--reveal-delay": 100 } as CSSProperties}
             aria-label="Footer"
           >
             {navItems.map(item => (
@@ -103,9 +83,12 @@ export function Footer() {
             >
               <span className="relative z-10">Resume</span>
             </a>
-          </motion.nav>
+          </nav>
 
-          <motion.div className="flex items-center gap-5" variants={itemVariants}>
+          <div
+            className="reveal flex items-center gap-5"
+            style={{ "--reveal-delay": 200 } as CSSProperties}
+          >
             {socials.map(social => (
               <a
                 key={social.label}
@@ -118,16 +101,16 @@ export function Footer() {
                 {social.icon}
               </a>
             ))}
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          className="mt-10 border-t pt-6 text-center text-xs text-muted-foreground"
-          variants={itemVariants}
+        <div
+          className="reveal mt-10 border-t pt-6 text-center text-xs text-muted-foreground"
+          style={{ "--reveal-delay": 300 } as CSSProperties}
         >
           <p>© {currentYear} Joe Kracz</p>
-        </motion.div>
+        </div>
       </div>
-    </motion.footer>
+    </footer>
   );
 }

@@ -145,8 +145,63 @@
   @apply w-full;
 }
 
-/* Honor reduced motion globally for any CSS-based transitions/animations.
-   Framer Motion is handled via <MotionConfig reducedMotion="user">. */
+/* Reveal on enter-viewport. Toggle data-inview="true" on the element itself
+   or any ancestor to trigger. Stagger children by setting --reveal-delay
+   inline (in ms). */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition-property: opacity, transform;
+  transition-duration: 0.55s;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+  will-change: opacity, transform;
+}
+
+[data-inview="true"] .reveal,
+.reveal[data-inview="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* On-mount entrance — same shape as .reveal but plays once, immediately.
+   Use for above-the-fold content that's already visible on first paint. */
+.enter {
+  opacity: 0;
+  animation: enter 0.55s cubic-bezier(0, 0, 0.2, 1) both;
+  animation-delay: calc(var(--reveal-delay, 0) * 1ms);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Grid-rows expand/collapse: wrap children in a .expand div whose
+   grid-template-rows animates between 0fr and 1fr. Inner child needs
+   min-height: 0 + overflow: hidden. */
+.expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.expand[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.expand > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Honor reduced motion globally. Snap to final state instead of animating. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -155,5 +210,8 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .reveal {
+    transform: none !important;
   }
 }

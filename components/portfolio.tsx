@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useInView } from "@/lib/hooks/use-in-view";
 import type { PortfolioProject } from "@/types/content";
 
 const VISIBLE_COUNT = 4;
@@ -18,29 +17,11 @@ type PortfolioProps = {
 export function Portfolio({ projects }: PortfolioProps) {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [showAll, setShowAll] = useState(false);
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.05 });
 
   const initialProjects = projects.slice(0, VISIBLE_COUNT);
   const hiddenProjects = projects.slice(VISIBLE_COUNT);
   const hasHidden = hiddenProjects.length > 0;
-
-  const headerVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0, 0, 0.2, 1] },
-    },
-  };
-
-  const rowVariants: Variants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0, 0, 0.2, 1], delay: 0.1 + i * 0.08 },
-    }),
-  };
 
   return (
     <section id="portfolio" className="relative overflow-hidden bg-muted/40 py-16 md:py-24">
@@ -49,13 +30,8 @@ export function Portfolio({ projects }: PortfolioProps) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent"
       />
-      <div ref={ref} className="container">
-        <motion.div
-          className="mb-12 max-w-3xl md:mb-16"
-          variants={headerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
+      <div ref={ref} data-inview={inView} className="container">
+        <div className="reveal mb-12 max-w-3xl md:mb-16">
           <h2 className="h2 mb-4">Selected work</h2>
           <p className="text-lead text-muted-foreground">
             Work I can publish. The{" "}
@@ -69,52 +45,35 @@ export function Portfolio({ projects }: PortfolioProps) {
             </a>{" "}
             has more I can&apos;t.
           </p>
-        </motion.div>
+        </div>
 
         <div className="mx-auto max-w-5xl">
           {initialProjects.map((project, index) => (
             <CaseStudyRow
               key={project.slug}
               project={project}
-              index={index}
-              animate={inView}
-              variants={rowVariants}
+              delayMs={100 + index * 80}
               isFirst={index === 0}
               onOpen={() => setSelectedProject(project)}
             />
           ))}
 
-          <AnimatePresence initial={false}>
-            {showAll && (
-              <motion.div
-                key="hidden-projects"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{
-                  opacity: 1,
-                  height: "auto",
-                  transition: { duration: 0.45, ease: [0, 0, 0.2, 1] },
-                }}
-                exit={{
-                  opacity: 0,
-                  height: 0,
-                  transition: { duration: 0.3, ease: [0.4, 0, 1, 1] },
-                }}
-                className="overflow-hidden"
-              >
-                {hiddenProjects.map((project, index) => (
+          {hasHidden && (
+            <div className="expand" data-open={showAll} aria-hidden={!showAll}>
+              <div>
+                {hiddenProjects.map(project => (
                   <CaseStudyRow
                     key={project.slug}
                     project={project}
-                    index={0}
-                    animate={true}
-                    variants={rowVariants}
+                    delayMs={0}
                     isFirst={false}
                     onOpen={() => setSelectedProject(project)}
+                    revealOnMount
                   />
                 ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            </div>
+          )}
 
           {hasHidden && (
             <div className="mt-10 flex justify-center md:mt-14">
@@ -224,23 +183,25 @@ export function Portfolio({ projects }: PortfolioProps) {
 
 type CaseStudyRowProps = {
   project: PortfolioProject;
-  index: number;
-  animate: boolean;
-  variants: Variants;
+  delayMs: number;
   isFirst: boolean;
   onOpen: () => void;
+  revealOnMount?: boolean;
 };
 
-function CaseStudyRow({ project, index, animate, variants, isFirst, onOpen }: CaseStudyRowProps) {
+function CaseStudyRow({
+  project,
+  delayMs,
+  isFirst,
+  onOpen,
+  revealOnMount = false,
+}: CaseStudyRowProps) {
   return (
-    <motion.article
-      custom={index}
-      variants={variants}
-      initial="hidden"
-      animate={animate ? "visible" : "hidden"}
-      className={`grid gap-8 py-12 md:grid-cols-[3fr_2fr] md:gap-14 md:py-16 ${
+    <article
+      className={`${revealOnMount ? "enter" : "reveal"} grid gap-8 py-12 md:grid-cols-[3fr_2fr] md:gap-14 md:py-16 ${
         isFirst ? "" : "border-t border-border"
       }`}
+      style={{ "--reveal-delay": delayMs } as CSSProperties}
     >
       <div className="flex flex-col justify-center">
         <h3 className="font-heading text-xl font-semibold tracking-tight md:text-2xl">
@@ -277,10 +238,7 @@ function CaseStudyRow({ project, index, animate, variants, isFirst, onOpen }: Ca
             </a>
           )}
           {(project.fullDescription || project.transformation) && (
-            <button
-              onClick={onOpen}
-              className="animated-underline text-sm font-medium"
-            >
+            <button onClick={onOpen} className="animated-underline text-sm font-medium">
               <span className="relative z-10">Read full case study</span>
             </button>
           )}
@@ -301,6 +259,6 @@ function CaseStudyRow({ project, index, animate, variants, isFirst, onOpen }: Ca
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
         />
       </button>
-    </motion.article>
+    </article>
   );
 }
