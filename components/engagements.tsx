@@ -33,7 +33,7 @@ export function Engagements({ modes }: EngagementsProps) {
     <section id="how-i-work" className="relative py-16 md:py-24">
       <div ref={ref} className="container">
         <motion.div
-          className="mb-12 max-w-2xl md:mb-20"
+          className="mb-12 max-w-3xl md:mb-20"
           variants={headerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -63,7 +63,7 @@ export function Engagements({ modes }: EngagementsProps) {
               <p className="mb-5 font-mono text-xs tracking-[0.25em] text-muted-foreground">
                 {mode.number}
               </p>
-              <h3 className="mb-5 font-heading text-2xl font-bold leading-tight tracking-tight md:text-[1.75rem]">
+              <h3 className="mb-5 font-heading text-2xl font-semibold leading-tight tracking-tight md:text-[1.75rem]">
                 {mode.label}
               </h3>
               <p className="mb-5 text-base leading-relaxed text-foreground">{mode.lead}</p>

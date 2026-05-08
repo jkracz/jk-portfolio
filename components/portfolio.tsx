@@ -51,14 +51,23 @@ export function Portfolio({ projects }: PortfolioProps) {
       />
       <div ref={ref} className="container">
         <motion.div
-          className="mb-12 max-w-2xl md:mb-16"
+          className="mb-12 max-w-3xl md:mb-16"
           variants={headerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
           <h2 className="h2 mb-4">Selected work</h2>
           <p className="text-lead text-muted-foreground">
-            Recent shipments, with the numbers attached.
+            Work I can publish. The{" "}
+            <a
+              href="/KraczResume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="animated-underline text-foreground"
+            >
+              <span className="relative z-10">resume</span>
+            </a>{" "}
+            has more I can&apos;t.
           </p>
         </motion.div>
 

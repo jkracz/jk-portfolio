@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Send } from "lucide-react";
-import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { submitWeb3Form, Web3FormsError } from "@/lib/web3forms";
@@ -34,13 +33,29 @@ export function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+      setSubmitError("Please fill in your name, email, and a short message.");
+      return;
+    }
+
     setSubmitError(null);
     setIsSubmitting(true);
 
     try {
       await submitWeb3Form({
         form: e.currentTarget,
-        subject: `New dev consulting inquiry: ${formData.name || "New inquiry"}`,
+        subject: `New inquiry from ${trimmedName}`,
+        fields: {
+          name: trimmedName,
+          email: trimmedEmail,
+          message: trimmedMessage,
+        },
       });
 
       setIsSubmitted(true);
@@ -49,7 +64,7 @@ export function Contact() {
       setSubmitError(
         error instanceof Web3FormsError
           ? error.message
-          : "Unable to send your message right now. Please try again."
+          : "Couldn't send the message. Check your connection and try again."
       );
     } finally {
       setIsSubmitting(false);
@@ -78,32 +93,14 @@ export function Contact() {
 
   const contentVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
         ease: "easeOut" as const,
-        delay: 0.2 + i * 0.1,
+        delay: 0.2,
       },
-    }),
-  } as const;
-
-  const socialVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 260,
-        damping: 20,
-        delay: 0.5 + i * 0.1,
-      },
-    }),
-    hover: {
-      scale: 1.2,
-      transition: { duration: 0.2 },
     },
   } as const;
 
@@ -129,90 +126,21 @@ export function Contact() {
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
       >
-        <motion.div className="mx-auto mb-12 max-w-3xl text-center" variants={headerVariants}>
-          <h2 className="h2 mb-4">
-            Let's Build Something Great Together
-          </h2>
-          <p className="text-xl text-muted-foreground">
-            Have a project in mind? Get in touch and let's discuss how I can help bring your vision
-            to life.
-          </p>
-        </motion.div>
-
-        <div className="mx-auto grid max-w-4xl gap-12 md:grid-cols-2">
-          <motion.div variants={contentVariants} custom={0}>
-            <h3 className="mb-4 text-xl font-semibold">Get in Touch</h3>
-            <p className="mb-6 text-lg">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be
-              part of your vision.
-            </p>
-
-            <div className="space-y-6">
-              <div className="group">
-                <h4 className="mb-1 font-medium transition-colors group-hover:text-primary">
-                  Email
-                </h4>
-                <p className="text-muted-foreground transition-colors group-hover:text-foreground">
-                  hello@joekracz.com
-                </p>
-              </div>
-
-              <div className="group">
-                <h4 className="mb-1 font-medium transition-colors group-hover:text-primary">
-                  Location
-                </h4>
-                <p className="text-muted-foreground transition-colors group-hover:text-foreground">
-                  San Francisco, CA
-                </p>
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-medium">Social Media</h4>
-                <div className="mt-2 flex space-x-4">
-                  <motion.a
-                    href="https://github.com/jkracz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full bg-muted p-2 transition-colors hover:bg-primary/10 hover:text-primary"
-                    variants={socialVariants}
-                    custom={0}
-                    whileHover="hover"
-                  >
-                    <FaGithub className="h-5 w-5" />
-                    <span className="sr-only">GitHub</span>
-                  </motion.a>
-                  <motion.a
-                    href="https://www.linkedin.com/in/joe-kracz-219829119/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full bg-muted p-2 transition-colors hover:bg-primary/10 hover:text-primary"
-                    variants={socialVariants}
-                    custom={1}
-                    whileHover="hover"
-                  >
-                    <FaLinkedin className="h-5 w-5" />
-                    <span className="sr-only">LinkedIn</span>
-                  </motion.a>
-                  <motion.a
-                    href="https://x.com/joey_kracz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full bg-muted p-2 transition-colors hover:bg-primary/10 hover:text-primary"
-                    variants={socialVariants}
-                    custom={2}
-                    whileHover="hover"
-                  >
-                    <FaXTwitter className="h-5 w-5" />
-                    <span className="sr-only">Twitter</span>
-                  </motion.a>
-                </div>
-              </div>
-            </div>
+        <div className="grid items-start gap-12 md:grid-cols-[2fr_3fr] md:gap-16 lg:gap-24">
+          {/* Type column: headline anchored by a thin vertical Cobalt mark.
+              Single Shape Rule from DESIGN.md — the mark + negative space
+              IS the composition, no filler copy needed. */}
+          <motion.div className="relative" variants={headerVariants}>
+            <div
+              aria-hidden="true"
+              className="absolute left-0 top-1.5 hidden h-14 w-0.5 bg-primary md:block lg:h-20"
+            />
+            <h2 className="h2 md:pl-6">Tell me what you&apos;re building.</h2>
           </motion.div>
 
-          <motion.div variants={contentVariants} custom={1}>
+          <motion.div variants={contentVariants}>
             {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
@@ -221,8 +149,11 @@ export function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your name"
+                    autoComplete="name"
+                    maxLength={120}
                     required
-                    className="transition-all duration-300 focus:border-primary"
+                    aria-invalid={Boolean(submitError) && !formData.name.trim()}
+                    className="transition-colors duration-200 focus:border-primary"
                   />
                 </div>
 
@@ -235,8 +166,12 @@ export function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="your.email@example.com"
+                    autoComplete="email"
+                    inputMode="email"
+                    maxLength={254}
                     required
-                    className="transition-all duration-300 focus:border-primary"
+                    aria-invalid={Boolean(submitError) && !formData.email.trim()}
+                    className="transition-colors duration-200 focus:border-primary"
                   />
                 </div>
 
@@ -247,11 +182,16 @@ export function Contact() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell me about your project..."
+                    placeholder="A sentence or two on what you're building."
                     rows={5}
+                    maxLength={4000}
                     required
-                    className="transition-all duration-300 focus:border-primary"
+                    aria-invalid={Boolean(submitError) && !formData.message.trim()}
+                    className="transition-colors duration-200 focus:border-primary"
                   />
+                  <p className="text-xs text-muted-foreground" aria-live="polite">
+                    {formData.message.length} / 4000
+                  </p>
                 </div>
 
                 {submitError ? (
@@ -262,37 +202,48 @@ export function Contact() {
 
                 <Button
                   type="submit"
-                  className="group relative w-full overflow-hidden"
+                  className="group w-full"
                   disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                 >
-                  <span className="relative z-10 flex items-center">
+                  <span className="flex items-center">
                     {isSubmitting ? (
-                      "Sending..."
+                      "Sending…"
                     ) : (
                       <>
-                        Get in Touch
-                        <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        Send message
+                        <Send className="ml-2 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
                       </>
                     )}
                   </span>
-                  <span className="absolute left-0 top-0 h-full w-0 bg-white/20 transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 </Button>
               </form>
             ) : (
               <motion.div
-                className="flex h-full flex-col items-center justify-center rounded-lg bg-primary/10 p-8 text-center"
+                className="relative"
                 variants={successVariants}
                 initial="hidden"
                 animate="visible"
+                role="status"
+                aria-live="polite"
               >
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20">
-                  <Send className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="mb-2 text-xl font-semibold">Message Sent!</h3>
-                <p className="mb-4">
-                  Thank you for reaching out. I'll get back to you as soon as possible.
+                <div
+                  aria-hidden="true"
+                  className="absolute left-0 top-1.5 hidden h-14 w-0.5 bg-primary md:block"
+                />
+                <h3 className="font-heading text-2xl font-semibold tracking-tight md:pl-6">
+                  Got it. Reply incoming.
+                </h3>
+                <p className="mt-3 max-w-prose text-base text-muted-foreground md:pl-6">
+                  I read every inquiry myself. Expect a reply within a couple of business days.
                 </p>
-                <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
+                <button
+                  type="button"
+                  onClick={() => setIsSubmitted(false)}
+                  className="animated-underline mt-6 text-sm font-medium md:ml-6"
+                >
+                  <span className="relative z-10">Send another message</span>
+                </button>
               </motion.div>
             )}
           </motion.div>

@@ -11,7 +11,12 @@ import { useTheme } from "next-themes";
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,16 +26,27 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (!element) return;
+    element.scrollIntoView({ behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      window.history.pushState(null, "", `#${id}`);
     }
   };
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   const navItems = [
@@ -114,11 +130,21 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between md:h-20">
         <Link href="/" className="group relative">
           <Image
-            src="/jk-logo.png"
+            src="/logoLight.png"
             alt="JK"
-            width={40}
+            width={54}
             height={40}
-            className="rounded-lg transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/25 group-hover:brightness-110"
+            style={{ height: "auto" }}
+            className="block rounded-lg transition-all duration-300 group-hover:brightness-110 dark:hidden"
+            priority
+          />
+          <Image
+            src="/logoDark.png"
+            alt="JK"
+            width={54}
+            height={40}
+            style={{ height: "auto" }}
+            className="hidden rounded-lg transition-all duration-300 group-hover:brightness-110 dark:block"
             priority
           />
         </Link>
@@ -141,14 +167,8 @@ export function Header() {
             </motion.button>
           ))}
           <motion.div custom={5} variants={navItemVariants} initial="hidden" animate="visible">
-            <Button
-              onClick={() => scrollToSection("contact")}
-              variant="default"
-              size="sm"
-              className="group relative overflow-hidden"
-            >
-              <span className="relative z-10">Contact Me</span>
-              <span className="absolute inset-0 bg-background opacity-0 transition-opacity duration-300 group-hover:opacity-20"></span>
+            <Button onClick={() => scrollToSection("contact")} variant="default" size="sm">
+              Contact me
             </Button>
           </motion.div>
           <motion.button
@@ -159,9 +179,21 @@ export function Header() {
             initial="hidden"
             animate="visible"
             whileHover={{ rotate: 15 }}
-            aria-label="Toggle theme"
+            aria-label={
+              mounted
+                ? `Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`
+                : "Toggle theme"
+            }
           >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            {mounted ? (
+              resolvedTheme === "dark" ? (
+                <Sun size={18} />
+              ) : (
+                <Moon size={18} />
+              )
+            ) : (
+              <span aria-hidden="true" className="block h-[18px] w-[18px]" />
+            )}
           </motion.button>
         </nav>
 
@@ -170,14 +202,28 @@ export function Header() {
           <button
             onClick={toggleTheme}
             className="rounded-full bg-muted/50 p-2 transition-colors hover:bg-muted"
-            aria-label="Toggle theme"
+            aria-label={
+              mounted
+                ? `Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`
+                : "Toggle theme"
+            }
           >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            {mounted ? (
+              resolvedTheme === "dark" ? (
+                <Sun size={18} />
+              ) : (
+                <Moon size={18} />
+              )
+            ) : (
+              <span aria-hidden="true" className="block h-[18px] w-[18px]" />
+            )}
           </button>
           <motion.button
             className="p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            onClick={() => setIsMobileMenuOpen(open => !open)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -190,6 +236,7 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id="mobile-menu"
             className="backdrop-blur-xs shadow-2xs overflow-hidden bg-background/95 md:hidden"
             variants={mobileMenuVariants}
             initial="hidden"
@@ -214,7 +261,7 @@ export function Header() {
                   size="sm"
                   className="w-full"
                 >
-                  Contact Me
+                  Contact me
                 </Button>
               </motion.div>
             </div>

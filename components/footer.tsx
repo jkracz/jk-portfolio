@@ -7,6 +7,16 @@ import { motion } from "framer-motion";
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+    e.preventDefault();
+    element.scrollIntoView({ behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      window.history.pushState(null, "", `#${id}`);
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -27,115 +37,95 @@ export function Footer() {
     },
   };
 
-  const linkVariants = {
-    hover: {
-      scale: 1.05,
-      color: "hsl(var(--primary))",
-      transition: { duration: 0.2 },
-    },
-  };
+  const navItems = [
+    { id: "portfolio", label: "Portfolio" },
+    { id: "how-i-work", label: "How I work" },
+    { id: "contact", label: "Contact" },
+  ];
 
-  const socialVariants = {
-    hover: {
-      scale: 1.2,
-      color: "hsl(var(--primary))",
-      transition: { duration: 0.2 },
+  const socials = [
+    {
+      icon: <FaGithub className="h-5 w-5" />,
+      label: "GitHub",
+      href: "https://github.com/jkracz",
     },
-  };
+    {
+      icon: <FaLinkedin className="h-5 w-5" />,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/joe-kracz-219829119/",
+    },
+    {
+      icon: <FaXTwitter className="h-5 w-5" />,
+      label: "X (Twitter)",
+      href: "https://x.com/joey_kracz",
+    },
+  ];
 
   return (
     <motion.footer
-      className="relative overflow-hidden border-t py-8 md:py-12"
+      className="relative border-t bg-muted/40 py-10 md:py-14"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
       variants={containerVariants}
     >
-      <div className="absolute left-1/4 top-0 h-64 w-64 rounded-full bg-primary/5 blur-3xl filter"></div>
-      <div className="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-secondary/5 blur-3xl filter"></div>
-
-      <div className="container relative">
-        <div className="flex flex-col items-center justify-between md:flex-row">
-          <motion.div className="mb-4 md:mb-0" variants={itemVariants}>
-            <Link href="/" className="font-heading text-xl font-bold">
+      <div className="container">
+        <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:gap-10">
+          <motion.div variants={itemVariants}>
+            <Link href="/" className="font-heading text-xl font-semibold tracking-tight">
               Joe Kracz
             </Link>
-            <p className="mt-1 text-sm text-muted-foreground">Custom software built for results</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Senior engineer. Open to roles, fractional, and project work.
+            </p>
           </motion.div>
 
           <motion.nav
-            className="mb-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 md:mb-0"
+            className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2"
             variants={itemVariants}
+            aria-label="Footer"
           >
-            {[
-              { id: "portfolio", label: "Portfolio" },
-              { id: "how-i-work", label: "How I work" },
-              { id: "contact", label: "Contact" },
-            ].map(item => (
-              <motion.div key={item.id} whileHover="hover" variants={linkVariants}>
-                <Link
-                  href={`#${item.id}`}
-                  onClick={e => {
-                    e.preventDefault();
-                    document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="text-sm transition-colors hover:text-primary"
-                >
-                  {item.label}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div whileHover="hover" variants={linkVariants}>
-              <a
-                href="/KraczResume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm transition-colors hover:text-primary"
+            {navItems.map(item => (
+              <Link
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={e => handleNavClick(e, item.id)}
+                className="animated-underline text-sm font-medium"
               >
-                Resume
-              </a>
-            </motion.div>
+                <span className="relative z-10">{item.label}</span>
+              </Link>
+            ))}
+            <a
+              href="/KraczResume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="animated-underline text-sm font-medium"
+            >
+              <span className="relative z-10">Resume</span>
+            </a>
           </motion.nav>
 
-          <motion.div className="flex space-x-4" variants={itemVariants}>
-            {[
-              {
-                icon: <FaGithub className="h-5 w-5" />,
-                label: "GitHub",
-                href: "https://github.com/jkracz",
-              },
-              {
-                icon: <FaLinkedin className="h-5 w-5" />,
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/in/joe-kracz-219829119/",
-              },
-              {
-                icon: <FaXTwitter className="h-5 w-5" />,
-                label: "Twitter",
-                href: "https://x.com/joey_kracz",
-              },
-            ].map((social, index) => (
-              <motion.a
-                key={index}
+          <motion.div className="flex items-center gap-5" variants={itemVariants}>
+            {socials.map(social => (
+              <a
+                key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-primary"
-                whileHover="hover"
-                variants={socialVariants}
+                aria-label={social.label}
+                className="text-muted-foreground transition-colors duration-200 hover:text-primary"
               >
                 {social.icon}
-                <span className="sr-only">{social.label}</span>
-              </motion.a>
+              </a>
             ))}
           </motion.div>
         </div>
 
         <motion.div
-          className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground"
+          className="mt-10 border-t pt-6 text-center text-xs text-muted-foreground"
           variants={itemVariants}
         >
-          <p>© {currentYear} Joe Kracz. All rights reserved.</p>
+          <p>© {currentYear} Joe Kracz</p>
         </motion.div>
       </div>
     </motion.footer>

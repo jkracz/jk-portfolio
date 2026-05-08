@@ -81,7 +81,7 @@
 
   h3,
   .h3 {
-    @apply font-heading text-2xl font-bold tracking-tight md:text-3xl;
+    @apply font-heading text-2xl font-semibold tracking-tight md:text-3xl;
   }
 
   h4,
@@ -101,7 +101,7 @@
 
   /* Body text */
   .text-lead {
-    @apply text-xl text-foreground md:text-2xl;
+    @apply text-lg leading-relaxed text-foreground md:text-xl;
   }
 
   .text-body {
@@ -130,27 +130,6 @@
   }
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-html {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* Smooth animations */
-* {
-  @apply transition-colors duration-200;
-}
-
-/* Hover effects */
-.hover-lift {
-  @apply transition-transform duration-300 hover:-translate-y-1;
-}
-
 /* Animated underline */
 .animated-underline {
   @apply relative;
@@ -158,9 +137,23 @@ html {
 
 .animated-underline::after {
   content: "";
-  @apply absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-300 ease-in-out;
+  @apply absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-300 ease-out;
 }
 
-.animated-underline:hover::after {
+.animated-underline:hover::after,
+.animated-underline:focus-visible::after {
   @apply w-full;
+}
+
+/* Honor reduced motion globally for any CSS-based transitions/animations.
+   Framer Motion is handled via <MotionConfig reducedMotion="user">. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
