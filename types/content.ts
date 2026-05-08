@@ -15,68 +15,10 @@ export type PortfolioProject = {
   };
 };
 
-export type ServiceIcon = "shopping-bag" | "layers" | "code" | "smartphone" | "globe" | "terminal";
-
-export type ServiceItem = {
+export type EngagementMode = {
   slug: string;
-  title: string;
-  description: string;
-  icon: ServiceIcon;
-  color: string;
-  features?: string[];
-  featured?: boolean;
-};
-
-export type ProjectType = "website" | "webapp" | "mobileapp";
-export type Timeline = "asap" | "standard" | "flexible";
-export type FeatureKey = "ecommerce" | "blog" | "authentication" | "apiIntegration";
-export type ComplexityLevel = 1 | 2 | 3;
-
-export type PricingProjectTypeOption = {
-  value: ProjectType;
+  number: string;
   label: string;
-  basePrice: number;
-};
-
-export type PricingFeatureOption = {
-  key: FeatureKey;
-  label: string;
-  description: string;
-  price: number;
-};
-
-export type PricingTimelineOption = {
-  value: Timeline;
-  label: string;
-  multiplier: number;
-};
-
-export type PricingComplexityOption = {
-  value: ComplexityLevel;
-  label: string;
-  description: string;
-  multiplier: number;
-};
-
-export type PricingConfig = {
-  sectionTitle: string;
-  sectionDescription: string;
-  estimateLabel: string;
-  estimateDisclaimer: string;
-  successTitle: string;
-  successDescription: string;
-  projectTypes: PricingProjectTypeOption[];
-  features: PricingFeatureOption[];
-  timelines: PricingTimelineOption[];
-  complexityLevels: PricingComplexityOption[];
-};
-
-export type PricingFormData = {
-  name: string;
-  email: string;
-  message: string;
-  projectType: ProjectType;
-  timeline: Timeline;
-  complexity: ComplexityLevel;
-  features: Record<FeatureKey, boolean>;
+  lead: string;
+  body: string;
 };

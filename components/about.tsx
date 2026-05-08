@@ -1,87 +1,26 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { ExternalLink } from "lucide-react";
+import { useInView } from "@/lib/hooks/use-in-view";
 
 export function About() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const technologies = [
-    { name: "React", logo: "/technology-icons/react-icon.svg?height=60&width=60" },
-    { name: "TypeScript", logo: "/technology-icons/typescript-icon.svg?height=60&width=60" },
-    { name: "Node.js", logo: "/technology-icons/nodejs-icon.svg?height=60&width=60" },
-    { name: "Expo", logo: "/technology-icons/expo-icon.svg?height=60&width=60" },
-    { name: "Tailwind CSS", logo: "/technology-icons/tailwind-icon.svg?height=60&width=60" },
-    { name: "JavaScript", logo: "/technology-icons/javascript-icon.svg?height=60&width=60" },
-    { name: "Shopify", logo: "/technology-icons/shopify-icon.svg?height=60&width=60" },
-    { name: "Webflow", logo: "/technology-icons/webflow-icon.svg?height=60&width=60" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const },
-    },
-  } as const;
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.6, ease: "easeOut" as const, delay: 0.2 },
-    },
-  } as const;
-
-  const techVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut" as const,
-        delay: 0.4 + i * 0.05,
-      },
-    }),
-  } as const;
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.1 });
 
   return (
     <section id="about" className="relative overflow-hidden bg-muted/50 py-16 md:py-24">
       <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-background to-transparent"></div>
 
-      <motion.div
-        className="container"
-        ref={ref}
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-      >
+      <div ref={ref} data-inview={inView} className="container">
         <div className="grid gap-12 md:grid-cols-2">
           {/* Left column: text + tech grid */}
           <div>
-            <motion.div variants={textVariants}>
+            <div className="reveal" style={{ "--reveal-delay": 0 } as CSSProperties}>
               <h2 className="h2 mb-6">About Me</h2>
               <div className="prose max-w-none">
                 <p className="text-lead mb-4">
-                  I'm Joe Kracz, a software engineer, engineering leader, and builder. I love
+                  I&apos;m Joe Kracz, a software engineer, engineering leader, and builder. I love
                   turning ideas into real products that people use.
                 </p>
                 <p className="text-body-large mb-4">
@@ -90,44 +29,30 @@ export function About() {
                   bring both the technical depth and the product intuition to make the right
                   tradeoffs.
                 </p>
-                <p className="text-body-large mb-4">
-                  Whether it's a custom web application, a mobile app, an e-commerce store, or a
-                  marketing site, I pick the right tool for the job and build it well. The
-                  technology serves the goal, not the other way around.
-                </p>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div className="mt-10" variants={textVariants}>
-              <h3 className="mb-5 text-lg font-semibold">Technologies I Work With</h3>
-              <div className="flex flex-wrap gap-6">
-                {technologies.map((tech, index) => (
-                  <motion.div
-                    key={tech.name}
-                    custom={index}
-                    variants={techVariants}
-                    className="group flex flex-col items-center gap-2"
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center opacity-70 transition-opacity duration-300 group-hover:opacity-100">
-                      <Image
-                        src={tech.logo || "/placeholder.svg"}
-                        alt={tech.name}
-                        width={36}
-                        height={36}
-                        className="max-h-full max-w-full object-contain"
-                      />
-                    </div>
-                    <span className="text-xs text-muted-foreground/60 transition-colors duration-300 group-hover:text-muted-foreground">
-                      {tech.name}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+            <div
+              className="reveal mt-8"
+              style={{ "--reveal-delay": 200 } as CSSProperties}
+            >
+              <a
+                href="/KraczResume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="animated-underline inline-flex items-center gap-1.5 text-sm font-medium"
+              >
+                <span className="relative z-10">Read my full resume</span>
+                <ExternalLink size={14} className="relative z-10" />
+              </a>
+            </div>
           </div>
 
           {/* Right column: image, vertically centered */}
-          <motion.div className="flex items-center" variants={imageVariants}>
+          <div
+            className="reveal flex items-center"
+            style={{ "--reveal-delay": 200 } as CSSProperties}
+          >
             <div className="relative h-[500px] w-full overflow-hidden rounded-2xl">
               <Image
                 src="/joe-kracz.avif"
@@ -139,9 +64,9 @@ export function About() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </div>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
