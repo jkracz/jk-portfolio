@@ -71,16 +71,9 @@ export function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden py-16 md:py-24">
       <div ref={ref} data-inview={inView} className="container">
-        <div className="grid items-start gap-12 md:grid-cols-[2fr_3fr] md:gap-16 lg:gap-24">
-          {/* Type column: headline anchored by a thin vertical Cobalt mark.
-              Single Shape Rule from DESIGN.md — the mark + negative space
-              IS the composition, no filler copy needed. */}
-          <div className="reveal relative" style={{ "--reveal-delay": 0 } as CSSProperties}>
-            <div
-              aria-hidden="true"
-              className="absolute left-0 top-1.5 hidden h-14 w-0.5 bg-primary md:block lg:h-20"
-            />
-            <h2 className="h2 md:pl-6">Tell me what you&apos;re building.</h2>
+        <div className="grid items-start gap-12 md:grid-cols-[2fr_3fr] md:items-center md:gap-16 lg:gap-24">
+          <div className="reveal max-w-md" style={{ "--reveal-delay": 0 } as CSSProperties}>
+            <h2 className="h2">Get in touch.</h2>
           </div>
 
           <div className="reveal" style={{ "--reveal-delay": 200 } as CSSProperties}>

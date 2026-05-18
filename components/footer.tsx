@@ -56,7 +56,7 @@ export function Footer() {
               Joe Kracz
             </Link>
             <p className="mt-1 text-sm text-muted-foreground">
-              Senior engineer. Open to roles, fractional, and project work.
+              Full-stack engineer. AI-native. I build across the stack and ship production software.
             </p>
           </div>
 

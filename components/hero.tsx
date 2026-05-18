@@ -22,17 +22,19 @@ export function Hero() {
             className="enter font-heading text-5xl font-bold leading-[1.05] tracking-[-0.025em] md:text-6xl lg:text-7xl"
             style={{ ["--reveal-delay" as string]: 200 }}
           >
-            I lead, build,
+            AI systems.
             <br />
-            and ship product.
+            Production code.
+            <br />
+            Shipped product.
           </h1>
 
           <p
             className="enter max-w-[58ch] text-lg leading-relaxed text-muted-foreground md:text-xl"
             style={{ ["--reveal-delay" as string]: 320 }}
           >
-            Senior software engineer and engineering leader. Open to full-time, fractional, and
-            project work.
+            I help teams move from prototype to production, across the stack and into the hands of
+            users.
           </p>
 
           <div

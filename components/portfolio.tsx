@@ -239,7 +239,7 @@ function CaseStudyRow({
           )}
           {(project.fullDescription || project.transformation) && (
             <button onClick={onOpen} className="animated-underline text-sm font-medium">
-              <span className="relative z-10">Read full case study</span>
+              <span className="relative z-10">Read more</span>
             </button>
           )}
         </div>
@@ -248,8 +248,8 @@ function CaseStudyRow({
       <button
         type="button"
         onClick={onOpen}
-        aria-label={`Open ${project.title} case study`}
-        className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-card focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        aria-label={`Read more about ${project.title}`}
+        className="focus-visible:outline-hidden group relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-card focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         <Image
           src={project.image || "/placeholder.svg"}
