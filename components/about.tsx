@@ -20,22 +20,29 @@ export function About() {
               <h2 className="h2 mb-6">About Me</h2>
               <div className="prose max-w-none">
                 <p className="text-lead mb-4">
-                  I&apos;m Joe Kracz, a software engineer, engineering leader, and builder. I love
-                  turning ideas into real products that people use.
+                  I&apos;m Joe Kracz, a full-stack engineer and former product manager specializing
+                  in AI-native products.
                 </p>
                 <p className="text-body-large mb-4">
-                  I have spent my career building software across the stack, from leading
-                  engineering teams and architecting systems to shipping production code myself. I
-                  bring both the technical depth and the product intuition to make the right
-                  tradeoffs.
+                  I&apos;ve spent the last several years building at the intersection of product and
+                  engineering, most recently as Director of Engineering at Pull Systems, where I
+                  architected an AI agent platform that contributed to 3 enterprise wins in 5 months
+                  and helped avoid $3M in downstream costs for one of our customers.
+                </p>
+                <p className="text-body-large mb-4">
+                  I bring both technical depth and product intuition. I&apos;ve shipped everything
+                  from LLM agent systems and sandboxed code execution layers to telematics data
+                  pipelines and websites for global entertainment brands. I write the code and
+                  I care about what it&apos;s for.
+                </p>
+                <p className="text-body-large">
+                  Outside of client work I build my own products, run a lot, and am working
+                  toward my second triathlon.
                 </p>
               </div>
             </div>
 
-            <div
-              className="reveal mt-8"
-              style={{ "--reveal-delay": 200 } as CSSProperties}
-            >
+            <div className="reveal mt-8" style={{ "--reveal-delay": 200 } as CSSProperties}>
               <a
                 href="/KraczResume.pdf"
                 target="_blank"
