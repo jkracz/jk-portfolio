@@ -25,7 +25,7 @@ export function Engagements({ modes }: EngagementsProps) {
             so the mono body has room to breathe. Vertical Cobalt rules appear only on
             desktop, between (not around) columns. No backgrounds, no borders around
             columns — newspaper spread, not card grid. */}
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-y-14 lg:grid-cols-3 lg:gap-x-0">
+        <div className="grid max-w-7xl grid-cols-1 gap-y-14 lg:grid-cols-3 lg:gap-x-0">
           {modes.map((mode, i) => (
             <div
               key={mode.slug}

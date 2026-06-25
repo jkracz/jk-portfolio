@@ -107,7 +107,7 @@ export function Portfolio({ projects }: PortfolioProps) {
           </p>
         </div>
 
-        <div className="max-w-5xl">
+        <div className="max-w-7xl">
           {showFilters && (
             <div
               className="reveal mb-2 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-b border-border pb-4"
@@ -372,6 +372,7 @@ function CaseStudyRow({ project, animation, delayMs, isFirst, onOpen }: CaseStud
           alt={project.title}
           fill
           sizes="(min-width: 768px) 40vw, 100vw"
+          loading={isFirst ? "eager" : "lazy"}
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           style={{ objectPosition: project.imagePosition }}
         />

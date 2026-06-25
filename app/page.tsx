@@ -14,7 +14,7 @@ const DynamicPortfolio = dynamic(
             <div className="h-12 w-56 rounded bg-muted"></div>
             <div className="h-6 w-96 max-w-full rounded bg-muted"></div>
           </div>
-          <div className="mx-auto max-w-5xl space-y-12">
+          <div className="max-w-7xl space-y-12">
             {[1, 2].map(i => (
               <div key={i} className="grid animate-pulse gap-8 md:grid-cols-[3fr_2fr] md:gap-14">
                 <div className="space-y-4">
@@ -43,7 +43,7 @@ const DynamicEngagements = dynamic(
             <div className="h-12 w-56 rounded bg-muted"></div>
             <div className="h-6 w-96 max-w-full rounded bg-muted"></div>
           </div>
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-y-14 lg:grid-cols-3 lg:gap-x-0">
+          <div className="grid max-w-7xl grid-cols-1 gap-y-14 lg:grid-cols-3 lg:gap-x-0">
             {[1, 2, 3].map(i => (
               <div key={i} className="animate-pulse space-y-4 px-0 lg:px-10">
                 <div className="h-3 w-8 rounded bg-muted"></div>
