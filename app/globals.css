@@ -145,6 +145,33 @@
   @apply w-full;
 }
 
+/* Filter tabs (Selected Work). Reuses the animated-underline signature: the
+   active tab locks the cobalt underline open; inactive tabs reveal it on
+   hover/focus. Type plus one underline carry the state, no pills or fills. */
+.filter-tab {
+  @apply relative text-muted-foreground transition-colors duration-200 ease-out;
+}
+
+.filter-tab::after {
+  content: "";
+  @apply absolute -bottom-1.5 left-0 h-0.5 w-0 bg-primary transition-all duration-300 ease-out;
+}
+
+.filter-tab:hover,
+.filter-tab:focus-visible {
+  @apply text-foreground;
+}
+
+.filter-tab:hover::after,
+.filter-tab:focus-visible::after,
+.filter-tab[data-active="true"]::after {
+  @apply w-full;
+}
+
+.filter-tab[data-active="true"] {
+  @apply text-foreground;
+}
+
 /* Reveal on enter-viewport. Toggle data-inview="true" on the element itself
    or any ancestor to trigger. Stagger children by setting --reveal-delay
    inline (in ms). */
