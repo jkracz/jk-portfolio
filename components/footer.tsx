@@ -44,11 +44,7 @@ export function Footer() {
   };
 
   return (
-    <footer
-      ref={ref}
-      data-inview={inView}
-      className="relative border-t bg-muted/40 py-10 md:py-14"
-    >
+    <footer ref={ref} data-inview={inView} className="relative border-t bg-muted/40 py-10 md:py-14">
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:gap-10">
           <div className="reveal" style={{ "--reveal-delay": 0 } as CSSProperties}>
@@ -108,7 +104,13 @@ export function Footer() {
           className="reveal mt-10 border-t pt-6 text-center text-xs text-muted-foreground"
           style={{ "--reveal-delay": 300 } as CSSProperties}
         >
-          <p>© {currentYear} Joe Kracz</p>
+          <p>
+            © {currentYear} Joe Kracz
+            <span aria-hidden="true" className="mx-2">
+              ·
+            </span>
+            Engagements contracted through JK Systems LLC
+          </p>
         </div>
       </div>
     </footer>

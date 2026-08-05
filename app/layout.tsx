@@ -14,23 +14,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://joekracz.com"),
   title: {
-    default: "Joe Kracz | Software Engineer & Freelance Developer",
+    default: "Joe Kracz | Software Engineer & Engineering Leader",
     template: "%s | Joe Kracz",
   },
   description:
-    "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
-  keywords: [
-    "software engineer",
-    "freelance developer",
-    "web application development",
-    "mobile app development",
-    "React development",
-    "Next.js developer",
-    "React Native",
-    "full stack developer",
-    "custom web applications",
-    "e-commerce development",
-  ],
+    "Senior software engineer and engineering leader. I lead teams, architect systems, and ship production code. Open to full-time, fractional, and project work.",
   authors: [{ name: "Joe Kracz" }],
   creator: "Joe Kracz",
   publisher: "Joe Kracz",
@@ -43,24 +31,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://joekracz.com",
-    siteName: "Joe Kracz | Freelance Developer",
-    title: "Joe Kracz | Freelance Developer",
+    siteName: "Joe Kracz",
+    title: "Joe Kracz | Software Engineer & Engineering Leader",
     description:
-      "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
+      "Senior software engineer and engineering leader. I lead teams, architect systems, and ship production code. Open to full-time, fractional, and project work.",
     images: [
       {
         url: "/og-image.avif",
         width: 1200,
         height: 630,
-        alt: "Joe Kracz - Freelance Developer",
+        alt: "Joe Kracz - software engineer and engineering leader",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Joe Kracz | Freelance Developer",
+    title: "Joe Kracz | Software Engineer & Engineering Leader",
     description:
-      "Custom web applications, mobile apps, and digital products built for results. Specializing in React, Next.js, React Native, and full-stack development.",
+      "Senior software engineer and engineering leader. I lead teams, architect systems, and ship production code. Open to full-time, fractional, and project work.",
     images: ["/og-image.avif"],
     creator: "@joeykracz",
   },
